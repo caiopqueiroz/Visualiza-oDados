@@ -1,0 +1,60 @@
+Linguagem R:  
+
+Raiz:
+	library() - Importar bibliotecas
+	
+	str() - Mudar estrutura de visualização
+	
+	x$y - Acessar, no banco x, a coluna y
+
+	mean(x, na.rm = T) - Média do valores de x
+
+	z[x, y] - Acessar, no banco z, o elemento em (x, y) 
+
+	print(x, n = y) - Exibir as y primeiras colunas do banco
+
+	c() - Criar lista
+
+	data.frame() - Exibir o banco como tabela
+
+	hist() - Exibir como histograma
+
+
+ggplot():
+	data = - Nome do banco
+
+	mapping = aes(x =, y =) - Elemento do eixo x e do eixo y
+
+	+ geom_point() - Pontos
+
+	+ geom_smooth() - Linha que se adapta
+
+	+ geom_histogram() - Histograma
+
+	+ labs(title, subtitle, x, y, color, shape, etc) - Texto
+
+	aes(
+		color = - Cor
+
+		shape = - Formato
+
+		fill = - Cor de preenchimento
+	)
+
+Project R (visual):
+	/ - Chamar tags e elementos
+
+	$ $ - Escrever operações matemáticas
+
+	{r} - Chunk de código em Linguagem R
+
+	{r x, y=FALSE} - Definir o nome como x, omitir y
+
+Atalhos:
+	alt + hífen (<-)
+	
+	control + alt + i ({r})
+
+	control + alt + k (knit)
+
+	control + shift + m (|>)
