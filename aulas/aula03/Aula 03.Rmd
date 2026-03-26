@@ -1,0 +1,87 @@
+---
+title: "Aula 03"
+author: "Caio Queiroz"
+date: "2026-03-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Retomando o gráfico da aula anterior
+
+| Pinguim 1      | Pinguim 2         | Pinguim 3        |
+|----------------|-------------------|------------------|
+| Pinguim Normal | Pinguim Diferente | Pinguim Especial |
+|                |                   |                  |
+
+**Vamos retomar de onde paramos, do gráfico dos pinguins.**
+
+**Mas antes, escrever uma equação**
+
+$$
+F(x) = \int_a^bf(x)dx=F(b)-F(a)
+$$
+
+$$
+f(x) = ax + b
+$$
+
+```{r grafico_pinguins, warning=FALSE, message=FALSE, echo=FALSE}
+# 'grafico_pinguins' é o nome dado à chunk R
+# warning, message, echo definidos como FALSE pra ocultá-los da visualização 
+library(tidyverse)
+library(dados)
+library(ggthemes)
+ggplot(data = pinguins, aes(x = comprimento_nadadeira, y = massa_corporal)) + geom_point(aes(color = especie)) + geom_smooth(method = 'lm') + 
+  labs(
+    title = 'Massa corporal e comprimento da nadadeira',
+    subtitle = 'Medidas para Pinguim-de-adélia, Pinguim-de-barbicha e Pinguim-gentoo',
+    x = 'Comprimento da nadadeira (mm)',
+    y = 'Massa corporal (g)',
+    color = 'Espécie',
+    shape = 'Espécie'
+  ) + scale_color_colorblind()
+
+ggplot(data = pinguins, aes(x = comprimento_bico, y = comprimento_nadadeira)) + geom_point(aes(color = especie, shape = especie)) + geom_smooth(aes(color = especie), method = 'lm') + 
+  labs (
+    title = 'Bico x Nadadeira (comprimento)',
+    x = 'Comprimento do bico',
+    y = 'Comprimento da nadadeira',
+    color = 'Espécie',
+    shape = 'Espécie'
+  )
+# 'shape' pode alterar o formato dos pontos do gráfico, podem se tornar quadrados, triângulos
+```
+
+## O operador pipe 
+
+```{r}
+# O operador pipe facilita a leitura dos códigos, escrevendo funções uma na frente da outra conforme a ordem de execução 
+
+# Sem o pipe 
+round(sqrt(10), digits = 2)
+
+# Com o pipe
+10 |> sqrt() |> round(digits = 2)
+
+# Com o pipe
+# Guardar o 'ggplot' dentro da variável p e utilizá-lo dessa forma
+p <- pinguins |> 
+  ggplot(aes(x = comprimento_nadadeira, y = massa_corporal)) + geom_point()
+p <- p + geom_point()
+p
+
+# Faça um gráfico de barras para a varíavel espécie
+g1 <- pinguins |> 
+  ggplot(aes(x = especie)) + geom_bar(aes(fill = especie))
+g1
+# 'fill' adiciona cor às barras do gráfico 
+
+# Faça um histograma para a variável massa corporal
+g2 <- pinguins |> 
+  ggplot(aes(x = massa_corporal)) + geom_histogram(aes(fill = especie), binwidth = 200)
+g2
+
+```
