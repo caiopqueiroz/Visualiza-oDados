@@ -1,0 +1,109 @@
+Vetores 
+
+| Ação             | Sintaxe      | Exemplo           |
+
+| ---------------- | ------------ | ----------------- |
+
+| Criar vetor      | `c()`        | `x <- c(1, 2, 3)` |
+
+| Acessar elemento | `[ ]`        | `x[1]`            |
+ 
+| Filtrar valores  | `[condição]` | `x[x > 2]`        |
+
+
+
+Operações vetorizadas 
+
+| Ação             | Sintaxe        | Exemplo       |
+
+| ---------------- | -------------- | ------------- |
+
+| Soma             | `+`            | `x + 2`       |
+
+| Multiplicação    | `*`            | `x * 3`       |
+
+| Comparação       | `>`, `<`, `>=` | `x > 2`       |
+
+| Resto da divisão | `%%`           | `x %% 2 == 0` |
+
+
+
+Funções básicas
+
+| Função            | Uso        | Exemplo             |
+
+| ----------------- | ---------- | ------------------- |
+
+| Média             | `mean()`   | `mean(x)`           |
+
+| Máximo            | `max()`    | `max(x)`            |
+
+| Mínimo            | `min()`    | `min(x)`            |
+
+| Amostra aleatória | `sample()` | `sample(1:100, 10)` |
+
+ 
+
+Condicionais vetorizadas
+
+| Ação              | Sintaxe         | Exemplo                 |
+
+| ----------------- | --------------- | ----------------------- |
+
+| If vetorizado     | `ifelse()`      | `ifelse(x > 2, 100, x)` |
+
+| Modificar valores | `[condição] <-` | `x[x > 2] <- 100`       |
+
+ 
+
+Data Frames
+
+| Ação         | Sintaxe        | Exemplo                          |
+
+| ------------ | -------------- | -------------------------------- |
+
+| Criar tabela | `data.frame()` | `df <- data.frame(a=1:3, b=4:6)` |
+
+| Ver tabela   | nome do objeto | `df`                             |
+
+ 
+
+Acessando dados
+
+| Ação                | Sintaxe           | Exemplo     |
+
+| ------------------- | ----------------- | ----------- |
+
+| Coluna              | `$`               | `df$coluna` |
+
+| Linha               | `[linha, ]`       | `df[1, ]`   |
+
+| Coluna por índice   | `[ , coluna]`     | `df[, 1]`   |
+
+| Elemento específico | `[linha, coluna]` | `df[1,2]`   |
+
+ 
+
+Filtros em tabelas
+
+| Ação           | Sintaxe        | Exemplo                              |
+
+| -------------- | -------------- | ------------------------------------ |
+
+| Filtrar linhas | `[condição, ]` | `df\[df$nota > 7, ]`                 |
+
+| AND            | `&`            | `df\[df$nota > 7 & df$idade > 20, ]` |
+
+| OR             | `|`            | `df\[df$nota > 7 | df$idade > 20, ]` |
+
+ 
+
+Criar/modificar colunas
+
+| Ação        | Sintaxe    | Exemplo                                                    |
+
+| ----------- | ---------- | ---------------------------------------------------------- |
+
+| Nova coluna | `$`        | `df$nova <- ...`                                           |
+
+| Condicional | `ifelse()` | `df$status <- ifelse(df$nota>=7, "Aprovado", "Reprovado")` |
