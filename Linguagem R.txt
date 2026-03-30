@@ -31,6 +31,8 @@ ggplot():
 
 	+ geom_histogram() - Histograma
 
+	+ geom_bar() - Barras 
+
 	+ labs(title, subtitle, x, y, color, shape, etc) - Texto
 
 	aes(

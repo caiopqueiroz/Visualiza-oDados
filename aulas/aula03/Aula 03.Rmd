@@ -55,7 +55,7 @@ ggplot(data = pinguins, aes(x = comprimento_bico, y = comprimento_nadadeira)) + 
 # 'shape' pode alterar o formato dos pontos do gráfico, podem se tornar quadrados, triângulos
 ```
 
-## O operador pipe 
+## O operador pipe
 
 ```{r}
 # O operador pipe facilita a leitura dos códigos, escrevendo funções uma na frente da outra conforme a ordem de execução 
