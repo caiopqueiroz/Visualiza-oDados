@@ -107,3 +107,90 @@ Criar/modificar colunas
 | Nova coluna | `$`        | `df$nova <- ...`                                           |
 
 | Condicional | `ifelse()` | `df$status <- ifelse(df$nota>=7, "Aprovado", "Reprovado")` |
+
+
+Estrutura base
+| Ação             | Sintaxe               | Exemplo        |
+| ---------------- | --------------------- | -------------- |
+| Selecionar dados | `df[linhas, colunas]` | `df[1, 2]`     |
+| Todas as linhas  | `df[, colunas]`       | `df[, "nome"]` |
+| Todas as colunas | `df[linhas, ]`        | `df[1, ]`      |
+
+
+
+Seleção de colunas
+| Ação              | Sintaxe  | Exemplo                   |
+| ----------------- | -------- | ------------------------- |
+| Uma coluna        | `$`      | `df$nome`                 |
+| Coluna por índice | `[ , n]` | `df[, 1]`                 |
+| Múltiplas colunas | `c()`    | `df[, c("nome", "nota")]` |
+
+
+
+Seleção de linhas 
+| Ação             | Sintaxe | Exemplo        |
+| ---------------- | ------- | -------------- |
+| Uma linha        | `[n, ]` | `df[2, ]`      |
+| Múltiplas linhas | `c()`   | `df[c(1,3), ]` |
+
+
+
+Remoção
+| Ação           | Sintaxe  | Exemplo    |
+| -------------- | -------- | ---------- |
+| Remover coluna | `[, -n]` | `df[, -2]` |
+| Remover linha  | `[-n, ]` | `df[-1, ]` |
+
+
+
+Filtros com condições
+| Ação             | Sintaxe        | Exemplo                              |
+| ---------------- | -------------- | ------------------------------------ |
+| Condição simples | `[condição, ]` | `df[df$nota > 7, ]`                  |
+| AND              | `&`            | `df[df$nota > 7 & df$idade > 20, ]`  |
+| OR               | `|`            | `df[df$nota > 7 | df$idade > 20, ]`  |
+
+
+
+Filtros + seleção de colunas
+| Ação                       | Sintaxe           | Exemplo                              |
+| -------------------------- | ----------------- | ------------------------------------ |
+| Filtrar e escolher colunas | `[condição, c()]` | `df[df$nota > 7, c("nome", "nota")]` |
+
+
+
+Modificação de dados
+| Ação            | Sintaxe         | Exemplo                     |
+| --------------- | --------------- | --------------------------- |
+| Alterar valores | `[condição] <-` | `df$nota[df$nota < 7] <- 0` |
+
+
+
+Ordenação
+| Ação        | Sintaxe          | Exemplo                 |
+| ----------- | ---------------- | ----------------------- |
+| Crescente   | `order()`        | `df[order(df$nota), ]`  |
+| Decrescente | `order(-coluna)` | `df[order(-df$nota), ]` |
+
+
+
+Valores únicos
+| Ação           | Sintaxe    | Exemplo           |
+| -------------- | ---------- | ----------------- |
+| Valores únicos | `unique()` | `unique(df$nome)` |
+
+
+
+Contagem de frequência 
+| Ação     | Sintaxe   | Exemplo          |
+| -------- | --------- | ---------------- |
+| Contagem | `table()` | `table(df$nome)` |
+
+
+
+
+
+
+
+
+
