@@ -188,9 +188,30 @@ Contagem de frequência
 
 
 
+| Ação             | Sintaxe          | Exemplo            |
+| ---------------- | ---------------- | ------------------ |
+| Ver tipo         | `class()`        | `class(x)`         |
+| Converter número | `as.numeric()`   | `as.numeric("10")` |
+| Converter texto  | `as.character()` | `as.character(10)` |
+| Converter lógico | `as.logical()`   | `as.logical(1)`    |
 
 
 
+| Ação        | Sintaxe    | Exemplo              |
+| ----------- | ---------- | -------------------- |
+| Criar fator | `factor()` | `factor(c("A","B"))` |
+| Ver níveis  | `levels()` | `levels(x)`          |
 
 
 
+| Ação        | Sintaxe    | Exemplo              |
+| ----------- | ---------- | -------------------- |
+| Criar fator | `factor()` | `factor(c("A","B"))` |
+| Ver níveis  | `levels()` | `levels(x)`          |
+
+
+
+| Ação | Sintaxe | Exemplo        |
+| ---- | ------- | -------------- |
+| If   | `if()`  | `if(x > 0) {}` |
+| Else | `else`  | `else {}`      |
