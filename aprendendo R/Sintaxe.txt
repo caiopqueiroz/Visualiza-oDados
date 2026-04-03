@@ -215,3 +215,35 @@ Contagem de frequência
 | ---- | ------- | -------------- |
 | If   | `if()`  | `if(x > 0) {}` |
 | Else | `else`  | `else {}`      |
+
+
+
+| Função     | Uso                     |
+| ---------- | ----------------------- |
+| `filter()` | filtrar linhas          |
+| `select()` | selecionar colunas      |
+| `mutate()` | criar/modificar colunas |
+
+
+
+| Operador | Uso                |
+| -------- | ------------------ |
+| `%>%`    | encadear operações |
+
+
+
+| Sintaxe                | O que faz                      | Exemplo                            |
+| ---------------------- | ------------------------------ | ---------------------------------- |
+| `group_by(var)`        | Agrupa por uma variável        | `group_by(produto)`                |
+| `group_by(var1, var2)` | Agrupa por múltiplas variáveis | `group_by(produto, cidade)`        |
+| `summarise()`          | Cria resumo dos dados          | `summarise(total = sum(vendas))`   |
+| `n()`                  | Conta número de linhas         | `summarise(n = n())`               |
+| `sum(var)`             | Soma valores                   | `sum(vendas)`                      |
+| `mean(var)`            | Média                          | `mean(vendas)`                     |
+| `max(var)`             | Valor máximo                   | `max(vendas)`                      |
+| `min(var)`             | Valor mínimo                   | `min(vendas)`                      |
+| `arrange(var)`         | Ordena crescente               | `arrange(vendas)`                  |
+| `arrange(desc(var))`   | Ordena decrescente             | `arrange(desc(vendas))`            |
+| `.groups = "drop"`     | Remove agrupamento após resumo | `summarise(..., .groups = "drop")` |
+
+
