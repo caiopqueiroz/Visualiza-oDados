@@ -1,0 +1,73 @@
+🧠 📚 Estrutura completa do curso de R
+🔥 Visão geral
+6 Fases
+~20–25 aulas práticas
+exercícios + projetos
+foco: dominar R pra faculdade E trabalho
+🗺️ FASE 1 — Fundamentos do R (base sólida)
+
+📍 Objetivo: entender como o R pensa
+
+Aulas:
+Vetores e operações
+Data Frames (tabelas)
+Indexação e seleção
+Fatores e tipos de dados avançados
+Funções básicas e organização de código
+🗺️ FASE 2 — Manipulação de dados (core do R)
+
+📍 Objetivo: trabalhar com dados reais
+
+Aulas:
+Introdução ao dplyr
+filter() e select()
+mutate() (criação de variáveis)
+group_by() + summarise()
+Pipeline (%>%)
+
+👉 Aqui você já vira “analista”
+
+🗺️ FASE 3 — Visualização de dados
+
+📍 Objetivo: criar gráficos profissionais
+
+Aulas:
+Introdução ao ggplot2
+Gráficos básicos (barra, linha, dispersão)
+Customização (cores, temas)
+Visualização avançada
+🗺️ FASE 4 — Estatística aplicada
+
+📍 Objetivo: base teórica + prática
+
+Aulas:
+Estatística descritiva
+Correlação
+Regressão linear
+Testes estatísticos básicos
+🗺️ FASE 5 — Projetos reais
+
+📍 Objetivo: consolidar tudo
+
+Projetos:
+📊 Análise de dados acadêmicos
+💰 Análise financeira pessoal
+📈 Projeto livre (tipo portfólio)
+🗺️ FASE 6 — Nível profissional (diferencial)
+
+📍 Objetivo: destacar no mercado
+
+Aulas:
+Organização de projetos
+Relatórios com R Markdown
+Boas práticas
+Introdução a machine learning (leve)
+⚡ Como as aulas funcionam
+
+Cada aula terá:
+
+explicação curta (sem enrolação)
+exemplos
+exercícios (nível crescente)
+desafio final
+resumo da sintaxe aprendida (em forma de tabela)

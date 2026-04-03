@@ -12,7 +12,7 @@ status <- factor(status)
 levels(status)
 
 quadrado <- function(numero) {
-  numero ** 2
+  numero^2
 }
 quadrado(9)
 
@@ -33,5 +33,11 @@ menor_media(1, 3, 5, 7, 9)
 
 analise <- function(...) {
   notas <- c(...)
-  list(media = mean(notas), quantidade_acima_media = sum(notas[notas > mean(notas)]))
+  list(media = mean(notas), quantidade_acima_media = length(notas[notas > mean(notas)]))
 }
+# ou 
+analise2 <- function(...) {
+  notas <- c(...)
+  list(media = mean(notas), quantidade_acima_media = sum(notas > mean(notas)))
+}
+analise(1.5, 2, 4, 5.5, 6, 8, 10)
