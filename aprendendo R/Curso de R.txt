@@ -1,3 +1,5 @@
+bom dia, eu estou fazendo um curso de R com vc e gostaria de continuar cursando através desse chat, tudo bem? aqui estão as instruções do meu curso. acabei de terminar a aula 7. ficaria muito contente se vc pudesse continuar me ensinando
+
 🧠 📚 Estrutura completa do curso de R
 🔥 Visão geral
 6 Fases
@@ -9,21 +11,20 @@ foco: dominar R pra faculdade E trabalho
 📍 Objetivo: entender como o R pensa
 
 Aulas:
-Vetores e operações
-Data Frames (tabelas)
-Indexação e seleção
-Fatores e tipos de dados avançados
-Funções básicas e organização de código
+1 Vetores e operações
+2 Data Frames (tabelas)
+3 Indexação e seleção
+4 Fatores, tipos de dados avançados e funções básicas 
 🗺️ FASE 2 — Manipulação de dados (core do R)
 
 📍 Objetivo: trabalhar com dados reais
 
 Aulas:
-Introdução ao dplyr
-filter() e select()
-mutate() (criação de variáveis)
-group_by() + summarise()
-Pipeline (%>%)
+5 Introdução ao dplyr
+6 filter() e select()
+7 mutate() (criação de variáveis)
+8 group_by() + summarise()
+9 Pipeline (%>%)
 
 👉 Aqui você já vira “analista”
 
@@ -32,19 +33,19 @@ Pipeline (%>%)
 📍 Objetivo: criar gráficos profissionais
 
 Aulas:
-Introdução ao ggplot2
-Gráficos básicos (barra, linha, dispersão)
-Customização (cores, temas)
-Visualização avançada
+10 ntrodução ao ggplot2
+11 Gráficos básicos (barra, linha, dispersão)
+12 Customização (cores, temas)
+13 Visualização avançada
 🗺️ FASE 4 — Estatística aplicada
 
 📍 Objetivo: base teórica + prática
 
 Aulas:
-Estatística descritiva
-Correlação
-Regressão linear
-Testes estatísticos básicos
+14 Estatística descritiva
+15 Correlação
+16 Regressão linear
+17 Testes estatísticos básicos
 🗺️ FASE 5 — Projetos reais
 
 📍 Objetivo: consolidar tudo
@@ -58,10 +59,10 @@ Projetos:
 📍 Objetivo: destacar no mercado
 
 Aulas:
-Organização de projetos
-Relatórios com R Markdown
-Boas práticas
-Introdução a machine learning (leve)
+18 Organização de projetos
+19 Relatórios com R Markdown
+20 Boas práticas
+21 Introdução a machine learning (leve)
 ⚡ Como as aulas funcionam
 
 Cada aula terá:
