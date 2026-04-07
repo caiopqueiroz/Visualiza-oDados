@@ -247,3 +247,27 @@ Contagem de frequência
 | `.groups = "drop"`     | Remove agrupamento após resumo | `summarise(..., .groups = "drop")` |
 
 
+
+| Sintaxe                   | O que faz                                 | Exemplo                                     |
+| ------------------------- | ----------------------------------------- | ------------------------------------------- |
+| `ggplot(dados, aes(...))` | Inicia o gráfico e define variáveis       | `ggplot(dados, aes(x = preco, y = vendas))` |
+| `aes(x = ..., y = ...)`   | Define eixos                              | `aes(x = produto, y = vendas)`              |
+| `geom_point()`            | Gráfico de dispersão                      | `geom_point()`                              |
+| `geom_col()`              | Gráfico de barras (valores já calculados) | `geom_col()`                                |
+| `geom_bar()`              | Contagem automática                       | `geom_bar()`                                |
+| `aes(color = var)`        | Define cor por grupo                      | `aes(color = produto)`                      |
+| `aes(fill = var)`         | Preenchimento (barras)                    | `aes(fill = produto)`                       |
+| `geom_smooth()`           | Linha de tendência                        | `geom_smooth(method = "lm")`                |
+| `position = "dodge"`      | Barras lado a lado                        | `geom_col(position = "dodge")`              |
+
+
+
+| Tipo           | Usar quando             | Exemplo                 |
+| -------------- | ----------------------- | ----------------------- |
+| `geom_point()` | Relação entre variáveis | preço vs vendas         |
+| `geom_col()`   | Comparar valores        | faturamento por produto |
+| `geom_bar()`   | Contar ocorrências      | nº de produtos          |
+
+
+
+
