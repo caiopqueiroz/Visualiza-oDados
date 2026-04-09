@@ -1,0 +1,77 @@
+---
+title: "Titanic"
+format: html
+editor: visual
+---
+
+# Análise do Banco Titanic
+
+## Elementos de Escrita
+
+O que aprendemos em R Markdown funciona aqui
+
+Criar bulllet points:
+
+-   Hífen + espaço
+
+-   Cria bullet points
+
+Listas enumeradas:
+
+1.  Item número 1
+    1.  Apertando tab se cria um subitem
+2.  Item número 2
+
+Formatações simples como **negrito** ou *itálico*
+
+A Ciência de Dados é uma área ampla.[^1]
+
+[^1]: Envolve Matemática, Estatística, Computação e outras áreas
+
+AI/ML[^2]
+
+[^2]: Artificial Inteligence e Machine Learning
+
+| Caio  | Pedro   | Bernardo |
+|-------|---------|----------|
+| 18    | 15      | 11       |
+| Homem | Criança | Bebê     |
+| 1,75  | 1,20    | 0,50     |
+
+```{r}
+#| label: setup
+#| echo: false
+#| message: false
+#| warning: false
+# '#|' é uma maneira de definir configurações do chunk
+# label = nome
+# echo = código aparecer ou não na tela
+
+library(tidyverse)
+library(reticulate)
+```
+
+# Importando os Dados
+
+## Vamos importar os dados \`titanic.csv\` no R
+
+```{r}
+titanic <- read_csv('titanic.csv')
+head(titanic)
+
+ggplot(
+  titanic,
+  aes(x = Survived) 
+) + geom_bar(aes(fill = Sex), position = 'dodge')
+
+titanic |> 
+  mutate(Survived = factor(Survived, labels = c('Não', 'Sim'))) |> 
+  
+  
+```
+
+```{python}
+print('Olá, Mundo!')
+for contador in range(0, 10):
+  print(contador)
+```
