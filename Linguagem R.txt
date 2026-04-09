@@ -19,6 +19,7 @@ Raiz:
 
 	hist() - Exibir como histograma
 
+	read_csv('x.csv') - Importar banco de dados externo x
 
 ggplot():
 	data = - Nome do banco
@@ -43,14 +44,14 @@ ggplot():
 		fill = - Cor de preenchimento
 	)
 
-Project R (visual):
+Project R ou Quarto Document (visual):
 	/ - Chamar tags e elementos
 
 	$ $ - Escrever operações matemáticas
 
 	{r} - Chunk de código em Linguagem R
 
-	{r x, y=FALSE} - Definir o nome como x, omitir y
+	{r x, y=FALSE} - Definir o nome como x, omitir y (também é possível usar #|)
 
 Atalhos:
 	alt + hífen (<-)
