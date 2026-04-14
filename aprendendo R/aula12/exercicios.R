@@ -34,9 +34,10 @@ dados |>
   group_by(categoria) |> 
   summarise(faturamento_total = sum(faturamento)) |> 
   ggplot(
-    aes(x = reorder(categoria, faturamento_total), y = faturamento_total, fill = categoria)
+    aes(x = reorder(categoria, faturamento_total), y = faturamento_total, fill = categoria, label = faturamento_total)
       ) +
-  scale_fill_manual(values = c('Escolar' = 'darkred', 'Periférico' = 'yellow', 'Eletrônico' = 'darkblue')) +
+  geom_text(nudge_y = 5000) +
+  scale_fill_manual(values = c('Escolar' = 'darkred', 'Periférico' = 'goldenrod', 'Eletrônico' = 'darkblue')) +
       geom_col(width = 0.7) +
   theme_classic() +
   theme(
@@ -58,8 +59,9 @@ provas <- data.frame(
 )
 ggplot(
   provas,
-  aes(x = materia, y = nota, fill = materia)
+  aes(x = materia, y = nota, fill = materia, label = nota)
 ) +
+  geom_text(nudge_y = 1) +
   geom_col() +
   labs(
     title = 'Respectivas notas nas provas do Curso de Matemática',
@@ -80,8 +82,9 @@ brasileiro <- data.frame(
 )
 ggplot(
   brasileiro,
-  aes(x = time, y = gols, fill = time)
+  aes(x = time, y = gols, fill = time, label = gols)
 ) +
+  geom_text(nudge_y = 3) +
   scale_fill_manual(values = c('Cruzeiro' = 'blue', 'Atlético-MG' = 'black', 'América-MG' = 'green')) +
   geom_col(width = 0.7) +
   theme_minimal() +
@@ -96,3 +99,40 @@ ggplot(
     y = 'Gols'
   )
 # escolhi essas cores porque são as cores de cada time 
+
+# ex05
+# gráfico bonito para colocar no linkedin
+# ideias:
+# buscar por dados de alguma empresa e construir um gráfico apontando algo (sugestão de melhoria ou apontar um problema existente)
+# criar um gráfico com a evolução das minhas cargas na academia
+# eixo x: exercício
+# eixo y: carga
+# cores: 1 ano atrás x atualmente
+# colocar uma coluna sobre a outra, a ideia é que a coluna que representa 1 ano atrás fique por cima da outra, já que será sempre menor 
+academia <- data.frame(
+  exercicio = c('Pulley Frente', 'Supino Reto', 'Elevação Lateral', 'Rosca Alternada', 'Tríceps Barra', 'Agachamento', 'Pulley Frente', 'Supino Reto', 'Elevação Lateral', 'Rosca Alternada', 'Tríceps Barra', 'Agachamento'),
+  carga = c(70, 34, 14, 20, 73, 20, 55, 24, 10, 14, 45, 25),
+  data = c('2026', '2026', '2026', '2026', '2026', '2026', '2025', '2025', '2025', '2025', '2025', '2025')
+)
+ggplot(
+  academia,
+  aes(
+    x = reorder(exercicio, carga), 
+    y = carga, 
+    fill = data
+    )) +
+  scale_fill_manual(values = c('2025' = 'gray70', '2026' = 'blue')) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 20, hjust = 1),
+    plot.title = element_text(size = 16, face = 'bold'),
+    legend.position = c(0.15, 0.8)
+  ) +
+  geom_col(position = 'dodge', width = 0.6) +
+  labs(
+    title = 'Carga Máxima em Cada Exercício',
+    subtitle = 'Pernas não acompanharam a evolução do corpo em 1 ano',
+    x = 'Exercício',
+    y = 'Peso em kg',
+    fill = 'Ano'
+  )
