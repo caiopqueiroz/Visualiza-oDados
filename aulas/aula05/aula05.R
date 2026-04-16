@@ -32,7 +32,7 @@ msleep |>
 
 # Criando um gráfico
 # Pensar em uma pergunta e tentar respondê-la através de um gráfico: quanto maior o peso do animal, mais ele dorme?
-# scale_x_log10() - altera a escala para logarítimica
+# scale_x_log10() - altera a escala para logarítmica
 ggplot(
   msleep,
   aes(x = bodywt, y = sleep_total)

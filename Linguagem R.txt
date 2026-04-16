@@ -21,6 +21,22 @@ Raiz:
 
 	read_csv('x.csv') - Importar banco de dados externo x
 
+	?x - Ajuda 
+
+	head(x) ou glimpse(x) - Pré-visualização do banco x
+
+	filter() - Filtrar linhas
+
+	select() - Selecionar colunas
+
+	mutate() - Criar ou modificar colunas
+
+	x <- x |> mutate() - Modificação definitiva no banco
+
+	drop_na(x) - Desconsidera NA da coluna x
+
+	sd(x) - Desvio padrão dos valores de x
+
 ggplot():
 	data = - Nome do banco
 
@@ -36,12 +52,22 @@ ggplot():
 
 	+ labs(title, subtitle, x, y, color, shape, etc) - Texto
 
+	+ scale_x_log10() - Escala logarítmica
+
+	+ geom_segment(aes(y = 0, yend = x)) - Linha que vai de 0 até o valor x
+
+	+ scale_x_discrete(labels = c('x' = 'y')) - No eixo x, troca o nome do valor x para y
+
 	aes(
 		color = - Cor
 
 		shape = - Formato
 
 		fill = - Cor de preenchimento
+
+		alpha = - Transparência
+
+		linewidth - Largura da linha
 	)
 
 Project R ou Quarto Document (visual):

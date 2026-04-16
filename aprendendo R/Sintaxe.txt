@@ -270,4 +270,40 @@ Contagem de frequência
 
 
 
+| Categoria    | Sintaxe                  | O que faz               | Exemplo                                     |
+| ------------ | ------------------------ | ----------------------- | ------------------------------------------- |
+| 📌 Títulos   | `labs(title = ...)`      | Define título           | `labs(title = "Vendas por Produto")`        |
+| 📌 Subtítulo | `labs(subtitle = ...)`   | Adiciona descrição      | `labs(subtitle = "Análise 2026")`           |
+| 📌 Eixos     | `labs(x = ..., y = ...)` | Nomeia eixos            | `labs(x = "Produto", y = "Vendas")`         |
+| 📌 Fonte     | `labs(caption = ...)`    | Adiciona fonte          | `labs(caption = "Fonte: dados internos")`   |
+| 🎨 Tema      | `theme_minimal()`        | Visual limpo            | `+ theme_minimal()`                         |
+| 🎨 Tema      | `theme_classic()`        | Visual tradicional      | `+ theme_classic()`                         |
+| 🎨 Tema      | `theme_dark()`           | Fundo escuro            | `+ theme_dark()`                            |
+| 🌈 Cor       | `aes(fill = var)`        | Cor em barras           | `aes(fill = categoria)`                     |
+| 🌈 Cor       | `aes(color = var)`       | Cor em pontos/linhas    | `aes(color = produto)`                      |
+| 🌈 Manual    | `scale_fill_manual()`    | Define cores das barras | `scale_fill_manual(values = c("A"="blue"))` |
+| 🌈 Manual    | `scale_color_manual()`   | Define cores dos pontos | `scale_color_manual(values = c("A"="red"))` |
+| 🔤 Texto     | `element_text()`         | Customiza texto         | `element_text(size = 14)`                   |
+| 🔤 Título    | `plot.title`             | Estilo do título        | `plot.title = element_text(face = "bold")`  |
+| 🔤 Eixo X    | `axis.text.x`            | Rotaciona texto         | `angle = 45`                                |
+| 🔤 Eixo Y    | `axis.text.y`            | Ajusta texto            | `size = 12`                                 |
+| 🧩 Tema      | `theme(...)`             | Ajustes finos           | `theme(legend.position = "none")`           |
+| 🧩 Legenda   | `legend.position`        | Move/remove legenda     | `"none"`                                    |
+| 📊 Barras    | `geom_col(width = ...)`  | Largura da barra        | `geom_col(width = 0.6)`                     |
+| 📊 Barras    | `position = "dodge"`     | Barras lado a lado      | `geom_col(position = "dodge")`              |
+| 📊 Barras    | `position = "identity"`  | Barras sobrepostas      | `geom_col(position = "identity")`           |
+| 📊 Ordem     | `reorder()`              | Ordena categorias       | `reorder(produto, vendas)`                  |
+| 📊 Ordem     | `factor(levels = ...)`   | Ordem manual            | `factor(x, levels = ordem)`                 |
+
+
+
+| Categoria             | Sintaxe           | O que faz                   | Exemplo                          |
+| --------------------- | ----------------- | --------------------------- | -------------------------------- |
+| 🏷️ Texto              | `geom_text()`     | Adiciona valores no gráfico | `geom_text(aes(label = vendas))` |
+| 🏷️ Label              | `label = var`     | Define o texto exibido      | `aes(label = vendas)`            |
+| 🏷️ Ajuste vertical    | `nudge_y = valor` | Move o texto pra cima/baixo | `geom_text(nudge_y = 2)`         |
+| 🏷️ Ajuste horizontal  | `nudge_x = valor` | Move o texto lateralmente   | `geom_text(nudge_x = 0.2)`       |
+| 🔤 Tamanho            | `size =`          | Define tamanho do texto     | `geom_text(size = 4)`            |
+| 🎨 Cor                | `color =`         | Cor do texto                | `geom_text(color = "black")`     |
+
 
