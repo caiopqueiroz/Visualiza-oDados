@@ -307,3 +307,12 @@ Contagem de frequência
 | 🎨 Cor                | `color =`         | Cor do texto                | `geom_text(color = "black")`     |
 
 
+
+| Função         | Uso                    |
+| -------------- | ---------------------- |
+| `facet_wrap()` | divide gráficos        |
+| `facet_grid()` | divide em linha/coluna |
+| `~`            | fórmula de separação   |
+
+
+
