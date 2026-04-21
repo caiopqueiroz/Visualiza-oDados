@@ -316,3 +316,16 @@ Contagem de frequência
 
 
 
+| Função             | Uso           |
+| ------------------ | ------------- |
+| `mean()`           | média         |
+| `median()`         | mediana       |
+| `sd()`             | desvio padrão |
+| `var()`            | variância     |
+| `summarise()`      | resumo        |
+| `geom_histogram()` | distribuição  |
+| `geom_boxplot()`   | dispersão     |
+
+
+
+
