@@ -328,4 +328,13 @@ Contagem de frequência
 
 
 
+| Função          | Uso        |
+| --------------- | ---------- |
+| `cor()`         | correlação |
+| `geom_point()`  | dispersão  |
+| `geom_smooth()` | tendência  |
+
+
+
+
 
