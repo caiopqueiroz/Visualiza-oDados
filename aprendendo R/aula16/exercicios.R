@@ -56,7 +56,10 @@ predict(modelo, newdata = data.frame(preco = 100))
 # ex04
 outro_modelo <- lm(vendas ~ preco + produto, data = dados)
 summary(outro_modelo)
-# não consegui interpretar o resultado
+# resultado: 
+# preco: efeito do preço, ou seja, se o preço subir +1, o produto venderá mais 4 unidades, em média
+# produtoB: comparação do produto B com o produto A, ou seja, B vende 81 unidades a mais que A
+# produtoC: comparação do produto C com o produto A, ou seja, C vende 18 unidades a mais que A
 
 # ex05
 modelo_mtcars <- lm(mpg ~ wt, data = mtcars)
