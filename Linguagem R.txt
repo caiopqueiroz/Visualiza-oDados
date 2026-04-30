@@ -48,7 +48,9 @@ ggplot():
 
 	+ geom_histogram() - Histograma
 
-	+ geom_bar() - Barras 
+	+ geom_bar(
+		     position = 'fill' - Torna as barras proporcionais
+		  ) - Barras 
 
 	+ labs(title, subtitle, x, y, color, shape, etc) - Texto
 
@@ -87,3 +89,22 @@ Atalhos:
 	control + alt + k (knit)
 
 	control + shift + m (|>)
+
+	control + shift + c (comentário)
+
+	control + shift + 1 (2, 3 ou 4) (maximizar janela)
+
+	control + shift + d (dulplicar linha)
+
+Observações: 
+- É possível criar um geom_text() e trabalhar com um segundo banco de dados dentro dele, para adicionar informações extras ao gráfico. Exemplo:
+
+geom_text(
+	data = 
+	aes(
+		x =
+		y = 
+		fill = 
+		label = 
+	   )
+	 )
