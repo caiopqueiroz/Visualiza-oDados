@@ -336,5 +336,23 @@ Contagem de frequência
 
 
 
+| Função      | Uso          |
+| ----------- | ------------ |
+| `lm()`      | criar modelo |
+| `summary()` | analisar     |
+| `predict()` | prever       |
+
+
+
+| Conceito   | Significado         |
+| ---------- | ------------------- |
+| H0         | não há efeito       |
+| H1         | há efeito           |
+| p-value    | chance de ser sorte |
+| t.test()   | compara médias      |
+| cor.test() | testa correlação    |
+
+
+
 
 

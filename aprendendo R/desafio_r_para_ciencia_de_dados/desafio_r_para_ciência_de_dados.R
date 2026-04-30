@@ -208,55 +208,64 @@ predict(modelo, newdata = cenario)
 
 # onde a empresa deve focar para aumentar o faturamento? 
 
-# informações:
-# produto com maior faturamento: celular 
-# eletrônicos faturam mais, no geral
-# acessórios vendem mais 
-# celular só é vendido em SP
+# qual produto fatura mais?  
+dados |> 
+  group_by(produto) |> 
+  summarise(
+    faturamento_total = sum(faturamento)
+  ) |> 
+  arrange(desc(faturamento_total))
+# celular: 36800 / tablet: 27100
+
+# qual cidade fatura mais?  
+dados |> 
+  group_by(cidade) |> 
+  summarise(
+    faturamento_total = sum(faturamento)
+  ) |> 
+  arrange(desc(faturamento_total))
+# SP fatura o dobro do RJ
 
 dados |> 
-  select(produto, faturamento, vendas) |> 
-  arrange(desc(faturamento))
+  group_by(produto, cidade) |> 
+  summarise(
+    preco_medio = mean(preco),
+    total_vendas = sum(vendas)
+  ) |> 
+  arrange(cidade)
+# tablets são vendidos nas duas cidades, mas o celular só em SP
 
+dados |> 
+  group_by(produto, cidade) |> 
+  summarise(
+    preco_medio = mean(preco),
+    total_vendas = sum(vendas)
+  ) |> 
+  filter(produto == 'Tablet') |> 
+  mutate(faturamento = preco_medio * total_vendas)
+# tablets faturam mais no RJ, ainda que com menor preço, porque tem mais vendas
+
+# qual categoria fatura mais?  
 dados |> 
   group_by(categoria) |> 
-  summarise(total_vendas = sum(vendas))
-
-dados |> 
-  group_by(cidade, produto) |> 
   summarise(
-    total_vendas =  sum(vendas),
-    preco_medio = mean(preco)
+    total_vendas = sum(vendas),
+    faturamento_total = sum(faturamento)
   ) |> 
-  arrange(desc(total_vendas))
+  arrange(desc(faturamento_total))
 
+# prevendo a quantidade de vendas do celular, caso o seu preço diminua
 modelo <- lm(vendas ~ preco + produto, data = dados)
 predict(modelo, newdata = data.frame(
-  preco = c(2200, 2500, 2800),
-  produto = c('Celular', 'Celular', 'Celular')
+  produto = 'Celular',
+  preco = 1900
 ))
+# faturamento atual do celular: 36800
+# se ambos os modelos de celulares custassem 1900, venderiam, em média, 9 unidades cada, logo, 1900 * 18, o novo faturamento com celulares seria 34800, então uma diminuição no preço possivelmente não vai aumentar o faturamento 
 
-previsao_dados <- data.frame(
-  produto = c('Celular Antes', 'Celular Depois'),
-  preco = c(2100, 2200),
-  previsao_vendas = c(10, 8)
-)
-
-previsao_dados |> 
-  mutate(faturamento = preco * previsao_vendas) |> 
-  ggplot(
-  aes(
-    x = reorder(produto, faturamento),
-    y = faturamento,
-    label = faturamento
-  )
-) + 
-  geom_col() +
-  geom_text(vjust = -0.5)
-
-# Bom dia, chefe, tudo bem? 
-# Onde a empresa deve focar para aumentar o faturamento? Bom, o nosso produto que retorna maior faturamento são os celulares. Eu realizei um cálculo e, utilizando regressão linear, cheguei à conclusão de que é provável que eles não terão queda significativa nas vendas com o aumento do seu preço, é uma análise estatisticamente segura.
-# Ainda que não seja o produto com a maior quantidade de vendas, o faturamento é muito superior em relação aos demais. Logo, a depender dos custos, é claro, pode ser uma excelente alternativa para focarmos. Minha sugestão é que inicie a produção de celulares em RJ e a aumente em SP. 
-
-
+# conclusões:
+# a categoria dos eletrônicos, embora não venda tanto como os acessórios, gera um faturamento muito superior
+# celular e tablets são os produtos que mais geram faturamento
+# em relação ao tablet, vendê-lo a um preço menor, como feito no RJ, tem se mostrado uma alternativa mais promissora pelo maior faturamento gerado por esse produto nessa cidade
+# a cidade de SP gera o dobro de faturamento que RJ, o produto que gera maior faturamento, o celular, não é vendido no RJ
 

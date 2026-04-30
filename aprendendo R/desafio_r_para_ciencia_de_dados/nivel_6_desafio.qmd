@@ -1,0 +1,78 @@
+---
+title: "Maior Faturamento"
+format: html
+editor: visual
+---
+
+## Maior Faturamento
+
+Boa tarde, chefe, tudo bem?
+
+Estive trabalhando em uma possibilidade para aumentar o faturamento da empresa. Com isso, notei quatro pontos que valem a pena serem discutidos:
+
+**1º** A categoria dos eletrônicos, embora não venda em mesma quantidade que os acessórios, gera um faturamento muito superior
+
+| Categoria   | Faturamento | Vendas |
+|-------------|-------------|--------|
+| Eletrônicos | 79.300      | 41     |
+| Acessórios  | 13.000      | 60     |
+
+**2º** Os produtos que mais geram faturamento são o celular e o tablet, com **36.800** e **27.100**, respectivamente. No entanto, o celular não é oferecido em ambas as cidades, somente em São Paulo. Até por isso, acredito que os números entre ambas as cidades sejam tão discrepantes, com a metrópole paulista (**61.000**) faturando, quase **2 vezes mais** que o Rio de Janeiro (**31.300**).
+
+**3º** Em relação ao tablet, temos as seguintes informações:
+
+```{r tablet, echo = FALSE, message = FALSE, warning = FALSE}
+
+library(dplyr)
+
+dados <- data.frame(
+  produto = c('Notebook', 'Celular', 'Tablet', 'Notebook', 'Celular', 'Tablet', 'Fone', 'Teclado', 'Fone', 'Tablet'),
+  categoria = c('Eletrônico', 'Eletrônico', 'Eletrônico', 'Eletrônico', 'Eletrônico', 'Eletrônico', 'Acessório', 'Acessório', 'Acessório', 'Eletrônico'),
+  cidade = c('SP', 'SP', 'RJ', 'RJ', 'SP', 'RJ', 'SP', 'RJ', 'RJ', 'SP'),
+  preco = c(3000, 2000, 1500, 3200, 2100, 1400, 200, 300, 180, 1600),
+  vendas = c(3, 10, 5, 2, 8, 6, 20, 15, 25, 7)
+)
+
+dados <- dados |> 
+  mutate(faturamento = preco * vendas)
+
+dados |> 
+  group_by(produto, cidade) |> 
+  summarise(
+    preco_medio = mean(preco),
+    total_vendas = sum(vendas)
+  ) |> 
+  filter(produto == 'Tablet') |> 
+  mutate(faturamento = preco_medio * total_vendas)
+
+```
+
+Ou seja, adotando um preço reduzido, como no RJ, obtivemos um número maior de vendas, resultando em um **faturamento 42% maior** que em SP. **11.200** para **15.950** (aumento de 42%).
+
+**4º** Já em relação ao celular, produto que gera maior faturamento, tomando por base uma previsão feita por mim, é provável que suas vendas **não tenham o mesmo comportamento que as vendas do tablet**. Logo, caso o preço de celular seja reduzido, ele, provavelmente não trará faturamento maior. A análise que usei para constatar essas informações tem valor estatisticamente seguro.
+
+```{r celular, message = FALSE, warning = FALSE, echo = FALSE}
+modelo <- lm(vendas ~ preco + produto, data = dados)
+predict(modelo, newdata = data.frame(
+  produto = 'Celular',
+  preco = 1900
+))
+```
+
+Esse é o número aproximado de vendas que cada um dos 2 modelos de celular teriam caso seus preços fossem **1.900**, ou seja, arredondando o valor para 9 e calculando o novo faturamento total dos celulares, teríamos o valor de **34.200**, menor que o atual (**36.800**).
+
+## O que fazer?
+
+Por tudo isso, minhas sugestões para aumentar o faturamento total de nossa empresa se resumem também a 4 ideias principais:
+
+-   Investir na produção de mais tipos de eletrônicos, pois retornam grande faturamento.
+
+-   Leve reajuste no preço do tablet na cidade de São Paulo, assim suas vendas podem seguir o comportamento das vendas no Rio de Janeiro e, com isso, aumentar o faturamento.
+
+-   Iniciar a venda de celulares no Rio de Janeiro, porque é o produto que gera maior faturamento, isso pode inclusive equilibrar o faturamento gerado entre as duas cidades.
+
+-   Não reduzir o preço dos celulares, ao menos por hora, uma vez que isso potencialmente não traria benefícios
+
+Desde já, agradeço
+
+Caio Augusto
