@@ -107,5 +107,71 @@ ggplot(
   )
 
 # 7 - Adicionando legenda ao gráfico do exercício 6 
- 
+
+# 8 - A profundidade do bico deve ser mapeada para color dentro da geometria porque os pontos são os únicos que devem ter cor de acordo com essa variável
+pinguins |> 
+  drop_na(comprimento_nadadeira, massa_corporal) |> 
+  ggplot(
+    aes(
+      x = comprimento_nadadeira,
+      y = massa_corporal
+    )
+  ) +
+  geom_point(aes(
+    color = profundidade_bico
+  )) +
+  geom_smooth()
   
+# 9 - Como o parâmetro color está definido de forma global, ambos o geom_point e o geom_smooth devem obedecer a ele, por isso os pontos e as linhas foram divididos por 3 cores
+ggplot(
+  pinguins,
+  aes(
+    x = comprimento_nadadeira,
+    y = massa_corporal,
+    color = ilha
+  )
+) +
+  geom_point() +
+  geom_smooth(
+    se = FALSE
+  )
+
+# 10 - Ambos são iguais, mas no segundo não há nenhum parâmetro global, apenas dentro das geometrias, que é uma outra maneira possível de se construir um gráfico
+ggplot(
+  pinguins,
+  aes(
+    x = comprimento_nadadeira,
+    y = massa_corporal
+  )
+) +
+  geom_point() +
+  geom_smooth()
+
+ggplot() +
+  geom_point(
+    data = pinguins,
+    mapping = aes(
+      x = comprimento_nadadeira,
+      y = massa_corporal
+    )
+  ) +
+  geom_smooth(
+    data = pinguins,
+    mapping = aes(
+      x = comprimento_nadadeira,
+      y = massa_corporal
+    )
+  )
+
+# Variáveis categóricas
+# Uma variável é categórica (ou seja, é uma categoria) se puder assumir apenas um valor de um pequeno conjunto de valores
+# Exibindo quantas vezes cada espécie (variável categórica) aparece
+pinguins |> 
+  ggplot(
+    aes(
+      x = especie
+    )
+  ) +
+  geom_bar()
+
+#1.4
