@@ -174,4 +174,157 @@ pinguins |>
   ) +
   geom_bar()
 
-#1.4
+# Ordenando a variável categórica com base na frequência, ou seja, da espécie com mais observações para a espécie com menos observações
+# Para isso, a variável deve ser transformada em um fator (fct ou factor)
+pinguins |> 
+  ggplot(
+    aes(
+      x = fct_infreq(especie)
+    )
+  ) +
+  geom_bar()
+
+# Variáveis numéricas
+# Uma visualização comumente usada para variáveis numéricas é um histogramas
+pinguins |> 
+  ggplot(
+    aes(
+      x = massa_corporal
+    )
+  ) +
+  geom_histogram(
+    binwidth = 200
+    )
+# A cada 200 gramas a mais de massa corporal, há uma barra diferente, e a altura de cada barra representa a quantidade de pinguis que tem a massa_corporal nessa faixa de peso
+
+# Outra forma de visualizar variáveis numéricas seria através da sua curva de densidade, que é uma representação suavizada do histograma
+pinguins |> 
+  ggplot(
+    aes(
+      x = massa_corporal
+    )
+  ) +
+  geom_density()
+
+# Exercícios:
+
+# 1 - É um gráfico de barras horizontais
+pinguins |> 
+  ggplot(
+    aes(
+      y = fct_infreq(especie)
+    )
+  ) +
+  geom_bar()
+
+# 2 - O parâmetro color apenas contorna as barras com a cor vermelha, já o fill preenche elas completamente, por isso é mais útil
+pinguins |> 
+  ggplot(
+    aes(
+      x = especie
+    )
+  ) +
+  geom_bar(fill = 'red')
+
+pinguins |> 
+  ggplot(
+    aes(
+      x = especie
+    )
+  ) +
+  geom_bar(color = 'red')
+
+# 3 - O argumento bins é o número de barras em que serão divididas as observações, e não a largura delas
+pinguins |> 
+  ggplot(
+    aes(
+      x = massa_corporal
+    )
+  ) + 
+  geom_histogram(bins = 20)
+
+# 4 - Com o binwidth definido como 0.1, é possível visualizar claramente o padrão da variável quilate
+diamante |> 
+  ggplot(
+    aes(
+      x = quilate
+    )
+  ) +
+  geom_histogram(binwidth = 0.1) +
+  scale_x_continuous(limits = c(0, 3))
+
+# Relações:
+# Variável numérica e variável categórica:
+# Uma maneira de relacionar uma variável numérica com uma variável categórica é utilizando boxplots
+pinguins |> 
+  drop_na(especie, massa_corporal) |> 
+  ggplot(
+    aes(
+      x = especie,
+      y = massa_corporal
+    )
+  ) + 
+  geom_boxplot()
+
+# Uma outra alternativa seria usar o geom_density e separar as especies usando cores 
+pinguins |> 
+  drop_na(massa_corporal) |> 
+  ggplot(
+    aes(
+      x = massa_corporal,
+      color = especie
+    )
+  ) + 
+  geom_density(linewidth = 0.75)
+# Além de alterar a espessura das linhas, podemos também preencher o conteúdo delas usando fill e adicionar transparência usando alpha (0 a 1)
+pinguins |> 
+  drop_na(massa_corporal) |> 
+  ggplot(
+    aes(
+      x = massa_corporal,
+      color = especie,
+      fill = especie
+    )
+  ) +
+  geom_density(
+    alpha = 0.5,
+    linewidth = 0.75
+  )
+
+# Duas variáveis categóricas:
+# Podemos representar através de um gráfico de barras mapeando uma variável para o eixo x e outra no argumento fill
+pinguins |> 
+  ggplot(
+    aes(
+      x = ilha,
+      fill = especie 
+    )
+  ) +
+  geom_bar()
+# Nesse caso, vemos a distribuição das espécies em cada ilha
+
+# Utilizando o argumento position = fill no geom_bar(), todas as barras se tornam proporcionais, assim é mais fácil visualizar a proporção entre as espécies de pinguim em cada 
+pinguins |> 
+  ggplot(
+    aes(
+      x = ilha,
+      fill = especie 
+    )
+  ) +
+  geom_bar(
+    position = 'fill'
+  )
+# Dessa forma, é possível notar, por exemplo, que na ilha Dream mais ou menos metade dos pinguins são de adélia, enquanto na ilha Biscoe, apenas um quarto 
+
+# Duas variáveis numéricas:
+# O gráfico mais utilizado nesse caso é o gráfico de dispersão
+pinguins |> 
+  ggplot(
+    aes(
+      x = comprimento_nadadeira,
+      y = massa_corporal
+    )
+  ) +
+  geom_point()
+
+# Três ou mais variáveis:
