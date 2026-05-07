@@ -37,6 +37,25 @@ Raiz:
 
 	sd(x) - Desvio padrão dos valores de x
 
+Tabelas:
+	gt(x) - Criar tabela do banco x
+
+	rownames_to_column('x') - Exibir o nome das linhas na coluna x
+
+	gt_theme_x() - Adicionando tema x
+
+	tab_header(title, subtitle) - Título
+
+	gt_hulk_col_numeric(x) - Mapa de calor na coluna x
+
+	data_color(x) - Mapa de calor na coluna x
+
+	gt_color_rows(x) - Mapa de calor na coluna x
+
+	gt_highlight_rows(x) - Destacando a linha x
+
+	gt_plt_x(y) - Dentro da tabela, criando gráfico de tipo x na coluna da variável y
+
 ggplot():
 	data = - Nome do banco
 
@@ -61,13 +80,13 @@ ggplot():
 	+ scale_x_discrete(labels = c('x' = 'y')) - No eixo x, troca o nome do valor x para y
 
 	aes(
-		color = - Cor
+		color - Cor
 
-		shape = - Formato
+		shape - Formato
 
-		fill = - Cor de preenchimento
+		fill - Cor de preenchimento
 
-		alpha = - Transparência
+		alpha - Transparência
 
 		linewidth - Largura da linha
 	)
@@ -108,3 +127,5 @@ geom_text(
 		label = 
 	   )
 	 )
+
+- É muito importante usar o comando de ajuda '?' para verificar a documentação das funções e entender seus parâmetros

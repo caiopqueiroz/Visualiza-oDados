@@ -328,3 +328,79 @@ pinguins |>
   geom_point()
 
 # Três ou mais variáveis:
+ggplot(
+  pinguins,
+  aes(
+    x = comprimento_nadadeira,
+    y = massa_corporal
+     ) 
+  ) +
+    geom_point(
+      aes(
+        color = especie,
+        shape = ilha
+      )
+    )
+# Para evitar que o gráfico fique confuso, dividimos ele em facetas usando facet_wrap()
+pinguins |> 
+  ggplot(
+    aes(
+      x = comprimento_nadadeira,
+      y = massa_corporal
+    )
+  ) +
+  geom_point(
+    aes(
+      color = especie,
+      shape = especie
+    )
+  ) + 
+  facet_wrap(~ ilha)
+
+# Exercícios
+
+# 1 - As variáveis categóricas são: fabricante, modelo, transmissao, tracao, combustivel e classe. Já as numéricas: cilindrada, ano, cilindros, cidade e rodovia. As variáveis categóricas são escritas usando aspas
+
+# 2 - Nas variáveis numéricas, a cor se mantém a mesma, o que muda é o tom, e o parâmetro shape não funciona. Nas categóricas, as cores são bem distintas e é possível separar por shape
+milhas |> 
+  ggplot(
+    aes(
+      x = rodovia,
+      y = cilindrada
+    )
+  ) +
+  geom_point(
+    aes(
+      color = cilindros,
+      size = cilindros,
+      alpha = 0.5,
+    )
+  )
+
+milhas |> 
+  ggplot(
+    aes(
+      x = rodovia,
+      y = cilindrada
+    )
+  ) +
+  geom_point(
+    aes(
+      color = tracao,
+      size = tracao,
+      alpha = 0.5,
+      shape = tracao
+    )
+  )
+
+# 3 - Nada
+milhas |> 
+  ggplot(
+    aes(
+      x = rodovia,
+      y = cilindrada,
+      linewidth = ano
+    )
+  ) +
+  geom_point()
+
