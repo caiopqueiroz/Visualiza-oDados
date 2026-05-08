@@ -393,14 +393,123 @@ milhas |>
     )
   )
 
-# 3 - Nada
+# 3 - Nada muda 
 milhas |> 
   ggplot(
     aes(
       x = rodovia,
-      y = cilindrada,
-      linewidth = ano
+      y = cilindrada
     )
   ) +
-  geom_point()
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = FALSE,
+    linewidth = rodovia
+  )
 
+# 4 - Na prática, eu estou somente poluindo o gráfico
+milhas |> 
+  ggplot(
+    aes(
+      x = rodovia,
+      y = cilindrada
+    )
+  ) +
+  geom_point(aes(
+    color = combustivel,
+    shape = combustivel,
+    size = combustivel
+  ))
+
+# 5 - A adição da coloração revela que espécies diferentes tem comprimento e profundidade de bico diferentes, assim como a relação entre essas duas variáveis também 
+pinguins |> 
+  ggplot(
+    aes(
+      x = profundidade_bico,
+      y = comprimento_bico,
+      color = especie 
+    )
+  ) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = FALSE
+  ) +
+  facet_wrap(~ especie)
+
+# 6 - Porque a função labs está alterando somente o nome da legenda que se refere à cor, para corrigir, é só definir o mesmo nome para a legenda do shape
+ggplot(
+  data = pinguins,
+  mapping = aes(
+    x = comprimento_bico,
+    y  = profundidade_bico,
+    color = especie,
+    shape = especie
+  )
+) +
+  geom_point() +
+  labs(
+    color = 'Espécie',
+    shape = 'Espécie'
+  )
+
+# 7 - No primeiro, vemos a proporção entre espécies dentro de cada ilha. Já no segundo, vemos em que ilha cada espécie habita 
+ggplot(
+  pinguins,
+  aes(
+    x = ilha,
+    fill = especie
+  )
+) +
+  geom_bar(
+    position = 'fill'
+  )
+
+ggplot(
+  pinguins,
+  aes(
+    x = especie,
+    fill = ilha
+  )
+) +
+  geom_bar(
+    position = 'fill'
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 20, vjust = 1)
+  )
+
+# Salvando os gráficos
+ggplot(
+  pinguins,
+  aes(
+    x = comprimento_nadadeira,
+    y = massa_corporal
+  )
+) +
+  geom_point() +
+  ggsave(filename = 'penguin-plot.png')
+
+# Exercícios:
+
+# 1 - O último, pois foi executado depois 
+ggplot(
+  milhas,
+  aes(
+    x = classe
+  ) 
+) +
+  geom_bar()
+ggplot(
+  milhas,
+  aes(
+    x = cidade,
+    y = rodovia
+  )    
+) +
+  geom_point() 
+ggsave('grafico-milhas.pdf')
+
+# 2 - Alterando o .png para .pdf - posso descobrir informações como essa consultado a documentação da função no R Studio
+  
