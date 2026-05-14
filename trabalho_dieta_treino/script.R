@@ -3,22 +3,37 @@ library(tidyverse)
 library(gt)
 library(gtExtras)
 
+# Lendo banco de dados
 dados <- read_csv('Estudos/VisualizaçãoDados/trabalho_dieta_treino/dados.csv')
 
+# Alterando o nome das variáveis
 colnames(dados) <- c('data_hora', 'exercicios', 'dias_exercicio', 'alimentacao', 'dieta', 'sono', 'bem_estar', 'melhora', 'idade')
 
+# Tratando os dados
 dados <- dados |> 
   mutate(
-    exercicios = ifelse(dias_exercicio == '0 dias', 'Não', 'Sim')
+    exercicios = ifelse(dias_exercicio == '0 dias', 'Não', 'Sim'),
+    dias_exercicio = ifelse(dias_exercicio == '0 dias', 0, 
+                             ifelse(dias_exercicio == '1 a 2 dias', 1,
+                                    ifelse(dias_exercicio == '3 a 4 dias', 3,
+                                           ifelse(dias_exercicio == '5 ou mais dias', 5, 'Erro'
+  )))),
+    sono = ifelse(sono == 'Menos de 5 horas', 4, 
+                  ifelse(sono == '5 a 6 horas', 5,
+                         ifelse(sono == '6 a 7 horas', 6,
+                                ifelse(sono == '7 a 8 horas', 7, 'Erro'
+  ))))
   )
 
+# Adicionando a variável id 
 dados <- dados |>
   select(- data_hora) |> 
   mutate(
-    id = seq(0, 26)
+    id = seq(0, 35)
   ) |> 
   relocate(id)
 
+# Exibindo lista com os dados ordenados 
 dados |> 
   arrange(id) |> 
   drop_na(exercicios) |> 
@@ -88,3 +103,12 @@ dados |>
   geom_density(
     linewidth = 0.75
   )
+
+dados |>
+  drop_na(bem_estar) |> 
+  ggplot(
+    aes(
+      x = exercicios
+    )
+  ) +
+  geom_bar()
