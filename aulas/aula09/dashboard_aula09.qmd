@@ -1,0 +1,151 @@
+---
+title: "Carros antigos"
+format: 
+  dashboard:
+    # Alterando o tema
+    theme: 
+      light: lux
+      dark: darkly
+    # Adicionando botões para navegação
+    nav-buttons:
+      - icon: linkedin
+        href: https://www.linkedin.com/in/caio-queiroz-759662401/
+        title: LinkedIn
+      
+      - icon: book
+    # Adicionando rolagem na página
+    scrolling: true
+editor_options:
+  chunk_output_type: console
+---
+
+```{r}
+#|label: setup
+library(tidyverse)
+```
+<!-- Hierarquia: # ## ### #### -->
+
+<!-- Criando uma página -->
+# Consumo e eficiência {orientation='row' scrolling='false'}
+
+<!-- Criando um sidebar (que é tratado como uma coluna) --> 
+## {.sidebar}
+Essa dashboard foi criada em uma aula de Visualização de Dados na UFV no dia 14/05/2026
+
+<!-- Criando uma coluna para exibir as informações ao lado do sidebar--> 
+## Column
+
+<!-- Criando uma linha -->
+### Row {height=70%}
+```{r}
+mpg |> 
+  ggplot(
+    aes(
+      x = cty,
+      y = hwy
+    )
+  ) +
+  geom_point()
+```
+
+<!-- Criando uma linha -->
+### Row {height=30%}
+
+<!-- Criando duas colunas dentro da linha -->
+#### Column {width=70%}
+```{r}
+mpg |> 
+  ggplot(
+    aes(
+      x = cyl
+    )
+  ) +
+  geom_bar()
+```
+
+#### Column {width=30%}
+```{r}
+print('Texto aqui!')
+```
+
+<!-- Criando outra página -->
+# Outra página {orientation='columns'}
+
+<!-- Adicionando abas na coluna -->
+## Column {width=80% .tabset}
+```{r}
+#| title: Dispersão pinguins
+library(dados)
+pinguins |> 
+  ggplot(
+    aes(
+      x = comprimento_nadadeira,
+      y = comprimento_bico
+    )
+  ) +
+  geom_point()
+```
+
+```{r}
+#| title: Quantidade de observações de cada espécie
+pinguins |> 
+  ggplot(
+    aes(
+      x = especie
+    )
+  ) +
+  geom_bar()
+```
+
+## Column {width=20%}
+Esse é um gráfico de pinguins!
+
+# Gráficos {orientation='columns' scrolling='false'}
+
+## Column
+```{r}
+pinguins |> 
+  ggplot(
+    aes(
+      x = ilha
+    )
+  ) +
+  geom_bar()
+```
+
+## Column
+<!-- Criando uma linha com um valuebox -->
+### Row
+```{r}
+#| title: Média na cidade
+#| content: valuebox
+valor <- round(mean(mpg$cty),1)
+list(
+  icon = 'fuel-pump',
+  color = 'primary',
+  value = paste(valor, 'mpg')
+)
+```
+
+```{r}
+#| title: Modelos únicos
+#| content: valuebox
+list(
+  icon = 'car-front',
+  color = 'info',
+  value = '38'
+)
+```
+
+```{r}
+#| title: Maior motor
+#| content: valuebox
+list(
+  icon = 'speedometer',
+  color = 'danger',
+  value = '7.0 l'
+)
+```
+
+## Column
+Gráfico 3
