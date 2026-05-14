@@ -37,6 +37,13 @@ Raiz:
 
 	sd(x) - Desvio padrão dos valores de x
 
+	list( 
+		icon = - Nome do ícone
+		color = - Cor 
+		value = - Valor exibido
+	    
+	    ) - Criar valuebox 
+
 Tabelas:
 	gt(x) - Criar tabela do banco x
 
@@ -100,6 +107,44 @@ Project R ou Quarto Document (visual):
 
 	{r x, y=FALSE} - Definir o nome como x, omitir y (também é possível usar #|)
 
+Quarto Document Dashboard (source):
+	format: dashboard
+		theme: - Alterar o tema
+			light: - Definir tema claro
+			dark: Definir tema escuro
+		
+		nav-buttons: - Botões para navegação
+			- icon: - Nome do ícone
+				href: Link
+				title: Título
+		
+		scrolling: true - Permitir rolagem na tela 
+
+	Hierarquia (do maior para o menor): #  ##  ###  ####
+		# x {parâmetros} - Criar página x
+		
+		## Row {parâmetros} - Criar linha
+
+		## Column {parâmetros} - Criar coluna
+
+		## {.sidebar parâmetros} - Criar sidebar
+
+		## Column | ## Row {.tabset parâmetros} - Criar coluna ou linha com abas
+
+	Parâmetros:
+		width=x% - Largura irá ocupar x% da tela
+
+		height=x% - Altura irá ocupar x% da tela
+
+		orientation='rows | columns' - Organização primária da página em linhas ou colunas
+
+		scrolling='false' - Impedindo a rolagem da tela
+
+	Chunk r:
+		#| title: - Título
+
+		#| content: - Conteúdo (exemplo: valuebox)
+
 Atalhos:
 	alt + hífen (<-)
 	
@@ -114,6 +159,11 @@ Atalhos:
 	control + shift + 1 (2, 3 ou 4) (maximizar janela)
 
 	control + shift + d (dulplicar linha)
+
+Documentação:
+	Documentação do quarto: https://quarto.org/docs/dashboards/theming.html
+
+	Documentação de ícones: https://icons.getbootstrap.com/
 
 Observações: 
 - É possível criar um geom_text() e trabalhar com um segundo banco de dados dentro dele, para adicionar informações extras ao gráfico. Exemplo:

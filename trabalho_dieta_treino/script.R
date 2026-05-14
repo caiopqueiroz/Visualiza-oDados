@@ -40,6 +40,12 @@ dados |>
   gt() |> 
   gt_theme_espn()
 
+
+
+# ---
+
+
+
 # Agrupando pelo nível de alimentação e calculando o valor médio do bem-estar
 # Ou seja, por exemplo: Qual o nível médio de bem-estar que tem as pessoas que consideram sua alimentação nota 0? 
 # Relacionando alimentação a bem-estar 
@@ -104,6 +110,7 @@ dados |>
     linewidth = 0.75
   )
 
+# Número de ocorrências de pessoas que treinam e não treinam
 dados |>
   drop_na(bem_estar) |> 
   ggplot(
@@ -112,3 +119,52 @@ dados |>
     )
   ) +
   geom_bar()
+
+# Pessoas que praticam exercícios tem melhor bem estar? 
+dados |> 
+  drop_na(exercicios) |> 
+  group_by(exercicios) |> 
+  summarize(
+    media_bem_estar = mean(bem_estar)
+  )
+# Sim, a média de nota para o bem estar é maior entre as pessoas que praticam exercícios
+
+# Pessoas que dormem mais tem melhor bem estar?
+dados |> 
+  drop_na(sono) |> 
+  group_by(sono) |> 
+  summarize(
+    media_bem_estar = mean(bem_estar)
+  )
+# Fato curioso: A média de nota para o bem estar é maior entre as pessoas com 5 horas de sono
+
+# Pessoas que percebem melhora com a alimentação balanceada e o treino realmente treinam e comem bem?
+dados |> 
+  filter(melhora %in% c(4, 5)) |> 
+  count(exercicios == 'Sim')
+# A grande maioria das pessoas que percebem grande melhora com o treino e alimentação realmente treinam
+
+dados |> 
+  filter(melhora %in% c(4, 5)) |> 
+  count(dias_exercicio %in% c(3, 5))
+# Fato curioso: Mas menos da metade treina pelo menos 3 dias por semana
+
+dados |> 
+  filter(melhora %in% c(4, 5)) |> 
+  count(alimentacao %in% c(3, 4, 5))
+# Mas de fato a maioria considera sua alimentação equilibrada
+
+# Ou seja, por mais que quase todas as pessoas notem uma melhora muito alta ao conciliar treino e alimentação, a maioria das pessoas pratica exercícios físicos 2 vezes ou menos por semana
+
+# Pessoas que consideram sua alimentação boa seguem dieta?
+dados |> 
+  filter(alimentacao %in% c(4, 5)) |> 
+  count()
+  
+dados |> 
+  filter(alimentacao %in% c(4 ,5)) |> 
+  filter(dieta %in% c(4, 5)) |> 
+  count()
+# Fato curioso: Apenas um terço das pessoas que dizem ter uma alimentação muito boa seguem um plano alimentar de forma rigorosa
+
+

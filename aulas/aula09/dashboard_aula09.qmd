@@ -11,12 +11,9 @@ format:
       - icon: linkedin
         href: https://www.linkedin.com/in/caio-queiroz-759662401/
         title: LinkedIn
-      
       - icon: book
     # Adicionando rolagem na página
     scrolling: true
-editor_options:
-  chunk_output_type: console
 ---
 
 ```{r}
@@ -26,7 +23,7 @@ library(tidyverse)
 <!-- Hierarquia: # ## ### #### -->
 
 <!-- Criando uma página -->
-# Consumo e eficiência {orientation='row' scrolling='false'}
+# Consumo e eficiência {orientation='rows' scrolling='false'}
 
 <!-- Criando um sidebar (que é tratado como uma coluna) --> 
 ## {.sidebar}
