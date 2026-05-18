@@ -1,0 +1,97 @@
+---
+title: "Trabalho Dieta e Treino"
+format: dashboard
+editor: visual
+---
+```{r}
+#| title: setup
+# Carregando pacotes
+library(tidyverse)
+library(gt)
+library(gtExtras)
+
+# Lendo banco de dados
+dados <- read_csv('dados.csv')
+
+# Alterando o nome das variáveis
+colnames(dados) <- c('data_hora', 'exercicios', 'dias_exercicio', 'alimentacao', 'dieta', 'sono', 'bem_estar', 'melhora', 'idade')
+
+# Tratando os dados
+dados <- dados |> 
+  mutate(
+    exercicios = ifelse(dias_exercicio == '0 dias', 'Não', 'Sim'),
+    dias_exercicio = ifelse(dias_exercicio == '0 dias', 0, 
+                             ifelse(dias_exercicio == '1 a 2 dias', 1,
+                                    ifelse(dias_exercicio == '3 a 4 dias', 3,
+                                           ifelse(dias_exercicio == '5 ou mais dias', 5, 'Erro'
+  )))),
+    sono = ifelse(sono == 'Menos de 5 horas', 4, 
+                  ifelse(sono == '5 a 6 horas', 5,
+                         ifelse(sono == '6 a 7 horas', 6,
+                                ifelse(sono == '7 a 8 horas', 7, 'Erro'
+  ))))
+  )
+
+dados$dias_exercicio <- as.numeric(dados$dias_exercicio)
+dados$sono <- as.numeric(dados$sono)
+
+# Adicionando a variável id 
+dados <- dados |>
+  select(- data_hora) |> 
+  mutate(
+    id = seq(0, 53)
+  ) |> 
+  relocate(id)
+```
+
+# Página inicial
+
+## Row 
+
+### Column {width=70%}
+```{r}
+dados |> 
+  filter(alimentacao > 0) |> 
+  group_by(alimentacao) |> 
+  summarise(
+    media_bem_estar = mean(bem_estar)
+  ) |> 
+  ggplot(
+    aes(
+      y = as.character(alimentacao),
+      x = media_bem_estar,
+      label = round(media_bem_estar,2),
+      fill = as.character(alimentacao)
+    )
+  ) +
+  scale_fill_manual(
+    values = c(
+      '5' = 'green2',
+      '4' = 'green3',
+      '3' = 'green4',
+      '2' = 'red3',
+      '1' = 'red2'
+    )
+  ) +
+  geom_col() +
+  geom_text(
+    hjust = 1.5,
+    color = 'white',
+    size = 8
+      ) +
+  theme_minimal() +
+  theme(
+    legend.position = 'none',
+    plot.title = element_text(size = 16, face = 'bold')
+  ) +
+  labs(
+    title = 'Média de bem-estar segundo a qualidade da alimentação',
+    subtitle = 'Pessoas que comem bem se sentem melhores'
+  )
+```
+
+### Column {width=30%}
+```{r}
+print('Coluna 2')
+```
+

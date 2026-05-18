@@ -85,6 +85,57 @@ voos |>
 voos |> 
   distinct(mes, dia)
 
-#3.2.5
-  
-  
+# 5 - Maiores distâncias: 51 e 15. Menores distâncias: 1632  
+voos |> 
+  select(voo, distancia) |> 
+  arrange(distancia)
+
+# 6 - Faz diferença, se utilizo o filter antes do arrange, a quantidade de linhas que o arrange deve ordenar é menor. É a maneira que faz mais sentido de se usar
+
+# Verbos (funções) para colunas 
+
+# mutate() adiciona novas colunas que são calculadas a partir de colunas já existente
+# Exemplos de uso do mutate()
+voos |> 
+  mutate(
+    tempo_ganho = atraso_saida - atraso_chegada,
+    velocidade = distancia / tempo_voo * 60,
+    horas = tempo_voo / 60,
+    tempo_ganho_hora = tempo_ganho / horas,
+    .keep = 'used',
+    .before = 1
+  ) 
+
+# select() seleciona colunas 
+# Exemplos de uso do select()
+
+# Seleciona colunas por nome
+voos |> 
+  select(ano, mes, dia)
+
+# Seleciona colunas entre nomes
+voos |> 
+  select(ano:dia)
+
+# Seleciona todas as colunas, exceto as que estão entre os nomes
+voos |> 
+  select(!ano:dia)
+
+# Seleciona todas as colunas que são caracteres
+voos |> 
+  select(where(is.character))
+
+# Seleciona todas as colunas que contêm 'hora' no nome 
+voos |> 
+  select(contains('hora'))
+
+# Renomeando a coluna codigo_cauda com select()
+voos |> 
+  select(tail_num = codigo_cauda)
+
+# rename() altera o nome de colunas
+# Exemplos de uso do rename()
+voos |> 
+  rename(tail_num = codigo_cauda)
+
+# 3.3.3
