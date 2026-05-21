@@ -51,27 +51,24 @@ dados |>
 
 # Separando as perguntas por variáveis:
 
-# sono / bem_estar
+# SONO
 # Pessoas que dormem mais tem melhor bem estar?
 
-# melhora / alimentacao / exercicios / dias_exercicio
+# EXERCICIOS
+# Número de ocorrências de pessoas que treinam e não treinam
+# Quantas pessoas treinam e seguem dieta?
+# Pessoas que praticam exercícios tem melhor bem estar?
+# É realmente necessário treinar e fazer dieta para se sentir bem?
 # Pessoas que percebem melhora com a alimentação balanceada e o treino realmente treinam e comem bem?
 
-# alimentacao / dieta
+# ALIMENTAÇÃO
 # Pessoas que consideram sua alimentação boa seguem dieta?
 
-# idade / alimentacao
+# IDADE
+# Pessoas mais jovens treinam mais?
 # Pessoas mais jovens se alimentam melhor?
 
-# idade / dias_exercicio
-# Pessoas mais jovens treinam mais?
 
-# exercicios / dias_exercicio / dieta
-# Quantas pessoas treinam e segue dieta?
-
-# exercicios / dieta / bem_estar
-# É realmente necessário treinar e fazer dieta para se sentir bem?
-# Pessoas que praticam exercícios tem melhor bem estar?
 
 
 

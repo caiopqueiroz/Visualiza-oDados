@@ -47,6 +47,9 @@ dados <- dados |>
   relocate(id)
 ```
 
+# Página inicial
+<!-- Página que irá explicar as variáveis que utilizamos na pesquisa -->
+
 # Alimentação, dieta e bem-estar
 
 **Alimentação e bem-estar**
@@ -144,15 +147,19 @@ dados |>
   )
 ```
 
-# Página 2
+## Row
+
+**Dieta e Bem-estar**
 
 ## Row
 
-### Column
-
+### Column {width=30%}
 ```{r}
+print('Explicação do gráfico 2')
+```
 
-
+### Column {width=70%}
+```{r}
 dados |> 
   filter(dieta != 5) |> 
   group_by(dieta) |> 
@@ -189,10 +196,35 @@ dados |>
     )
 ```
 
-### Column
+# Exercícios 
 
+## Row {height='400px'}
 ```{r}
-
+#| fig-width: 6
+#| fig-height: 4
+#| column: page
+dados |>
+  drop_na(bem_estar) |> 
+  ggplot(
+    aes(
+      x = exercicios
+    )
+  ) +
+  geom_bar()
 ```
 
-## Row
+## Row {height='400px'}
+```{r}
+#| fig-width: 6
+#| fig-height: 4
+#| column: page
+dados |>
+  drop_na(bem_estar) |> 
+  ggplot(
+    aes(
+      x = exercicios
+    )
+  ) +
+  geom_bar()
+```
+

@@ -44,6 +44,14 @@ Raiz:
 	    
 	    ) - Criar valuebox 
 
+	ggplotly(x, tooltip = 'text') - Tornar o gráfico x interativo 
+
+	animate(x, 
+		nframes = 30,
+		fps = 4,
+		renderer = gifski_renderer()
+		) - Animar o gráfico x	
+
 Tabelas:
 	gt(x) - Criar tabela do banco x
 
@@ -70,7 +78,7 @@ ggplot():
 
 	+ geom_point() - Pontos
 
-	+ geom_smooth() - Linha que se adapta
+	+ geom_smooth() - Linha de tendência
 
 	+ geom_histogram() - Histograma
 
@@ -86,6 +94,12 @@ ggplot():
 
 	+ scale_x_discrete(labels = c('x' = 'y')) - No eixo x, troca o nome do valor x para y
 
+	+ guides(x = FALSE) - Ocultar legenda x
+
+	+ transition_time(x) - Definir a variação do tempo como a variável temporal x
+
+	+ ease_aes('linear') - Definir uma transição suave
+
 	aes(
 		color - Cor
 
@@ -96,6 +110,8 @@ ggplot():
 		alpha - Transparência
 
 		linewidth - Largura da linha
+
+		text = paste() - Escrever informações que serão exibidas em um gráfico interativo
 	)
 
 Project R ou Quarto Document (visual):
