@@ -119,6 +119,7 @@ dados |>
 
 # Relacionando dieta a bem-estar
 dados |> 
+  filter(dieta != 5) |> 
   group_by(dieta) |> 
   summarise(
     media_bem_estar = mean(bem_estar)
@@ -126,7 +127,7 @@ dados |>
   drop_na(dieta) |> 
   ggplot(
     aes(
-      x = dieta,
+      x = as.character(dieta),
       y = media_bem_estar,
       label = round(media_bem_estar,2)
     )

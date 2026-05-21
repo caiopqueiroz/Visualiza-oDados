@@ -138,4 +138,95 @@ voos |>
 voos |> 
   rename(tail_num = codigo_cauda)
 
-# 3.3.3
+# relocate() altera a posição das variáveis 
+# Exemplos de uso do relocate()
+voos |> 
+  relocate(data_hora, tempo_voo)
+
+voos |> 
+  relocate(
+    ano:horario_saida,
+    .after = data_hora)
+
+voos |> 
+  relocate(
+    contains('cheg'),
+    .before = horario_saida
+  )
+
+# Exercícios
+
+# 1 - O atraso na saída é igual a diferença entre o horário da saída e a saída programada
+voos |> 
+  select(
+    horario_saida,
+    saida_programada,
+    atraso_saida
+    )
+
+# 2 -
+voos |> 
+  select(
+    horario_saida,
+    atraso_saida,
+    horario_chegada,
+    atraso_chegada
+  )
+
+voos |> 
+  relocate(
+    contains('horario'),
+    contains('atraso')
+  )
+
+voos |> 
+  select(
+    contains('horario'),
+    contains('atraso')
+  )
+
+voos |> 
+  select(
+    ends_with('saida'),
+    ends_with('chegada') 
+  )
+
+# 3 - A coluna aparece apenas uma vez
+voos |> 
+  select(
+    dia,
+    dia,
+    dia
+  )
+
+# 4 - A função any_of() recebe um vetor com o nome de múltiplas variáveis e, depois, quando utilizada em conjunto com o select(), seleciona todas essas colunas no banco de dados
+variaveis <- c('ano', 'mes', 'dia', 'atraso_saida', 'atraso_chegada')
+voos |> 
+  select(any_of(variaveis))
+
+# 5 - As funções auxiliares não são sensíveis à letras maiúsculas e minúsculas, mas isso pode ser alterado definindo o parâmetro ignore.case como FALSE 
+voos |> 
+  select(
+    contains('TEMPO', ignore.case = FALSE)
+  )
+    
+# 6 - 
+voos |> 
+  rename(
+    tempo_voo_min = tempo_voo
+  ) |> 
+  relocate(
+    tempo_voo_min
+  )
+
+# 7 - Não funciona porque, ao selecionar apenas a coluna codigo_cauda, é impossível utilizar todas as outras em qualquer função que venha depois
+voos |> 
+  select(codigo_cauda) |> 
+  arrange(atraso_chegada)
+
+# Corrigindo:
+voos |> 
+  arrange(atraso_chegada) |> 
+  select(codigo_cauda)
+
+# 3.4

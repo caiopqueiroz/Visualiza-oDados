@@ -1,8 +1,11 @@
 ---
 title: "Trabalho Dieta e Treino"
-format: dashboard
+format: 
+  dashboard:
+    scrolling: true
 editor: visual
 ---
+
 ```{r}
 #| title: setup
 # Carregando pacotes
@@ -44,11 +47,20 @@ dados <- dados |>
   relocate(id)
 ```
 
-# Página inicial
+# Alimentação, dieta e bem-estar
 
-## Row 
+**Alimentação e bem-estar**
 
-### Column {width=70%}
+## Row
+
+### Column {width="30%"}
+
+```{r}
+print('Explicação do gráfico 1')
+```
+
+### Column {width="70%"}
+
 ```{r}
 dados |> 
   filter(alimentacao > 0) |> 
@@ -69,8 +81,8 @@ dados |>
       '5' = 'green2',
       '4' = 'green3',
       '3' = 'green4',
-      '2' = 'red3',
-      '1' = 'red2'
+      '2' = 'red4',
+      '1' = 'red3'
     )
   ) +
   geom_col() +
@@ -90,8 +102,97 @@ dados |>
   )
 ```
 
-### Column {width=30%}
+## Row
+
+### Column {width=20%}
+
+A semelhança entre os dois gráficos a seguir deixa claro a relação positiva entre uma alimentação saudável e o bem-estar físico e mental.
+
+Repare por exemplo que o para o nível 4 no eixo x, a curva de densidade é extremamente parecida nos dois gráficos.
+
+Isso porque, a maioria das pessoas que avaliou sua alimentação como como nota 4 também avaliou seu bem-estar com essa mesma nota.
+
+### Column {width=80% .tabset}
+
 ```{r}
-print('Coluna 2')
+#| title: Alimentação
+dados |> 
+  drop_na(alimentacao) |> 
+  ggplot(
+    aes(
+      x = alimentacao
+    )
+  ) +
+  geom_density(
+    linewidth = 0.75,
+    fill = 'lightblue'
+  )
 ```
 
+```{r}
+#| title: Bem-estar
+dados |>
+  drop_na(bem_estar) |> 
+  ggplot(
+    aes(
+      x = bem_estar
+    )
+  ) +
+  geom_density(
+    linewidth = 0.75,
+    fill = 'lightblue'
+  )
+```
+
+# Página 2
+
+## Row
+
+### Column
+
+```{r}
+
+
+dados |> 
+  filter(dieta != 5) |> 
+  group_by(dieta) |> 
+  summarise(
+    media_bem_estar = mean(bem_estar)
+  ) |> 
+  drop_na(dieta) |> 
+  ggplot(
+    aes(
+      y = as.character(dieta),
+      x = media_bem_estar,
+      label = round(media_bem_estar,2),
+      fill = as.character(dieta)
+    )
+  ) +
+  scale_fill_manual(
+    values = c(
+      '4' = 'green3',
+      '3' = 'green2',
+      '2' = 'green4',
+      '1' = 'red4',
+      '0' = 'red3'
+    )
+  ) +
+  geom_col() +
+  theme_minimal() +
+  theme(
+    legend.position = 'none'
+  ) +
+  geom_text(
+    hjust = 1.5,
+    size = 8,
+    color = 'white'
+    )
+```
+
+### Column
+
+```{r}
+
+```
+
+## Row
