@@ -104,15 +104,15 @@ dados |>
 
 ## Row
 
-### Column {width=20%}
+### Column {width="20%"}
 
 A semelhança entre os dois gráficos a seguir deixa claro a relação positiva entre uma alimentação saudável e o bem-estar físico e mental.
 
-Repare por exemplo que o para o nível 4 no eixo x, a curva de densidade é extremamente parecida nos dois gráficos.
+Repare por exemplo que para o nível 4 no eixo x, a curva de densidade é extremamente parecida nos dois gráficos.
 
-Isso porque, a maioria das pessoas que avaliou sua alimentação como como nota 4 também avaliou seu bem-estar com essa mesma nota.
+Isso porque, a maioria das pessoas que avaliou sua alimentação como nota 4 também avaliou seu bem-estar com essa mesma nota.
 
-### Column {width=80% .tabset}
+### Column {.tabset width="80%"}
 
 ```{r}
 #| title: Alimentação
@@ -140,7 +140,7 @@ dados |>
   ) +
   geom_density(
     linewidth = 0.75,
-    fill = 'lightblue'
+    fill = 'orange'
   )
 ```
 
