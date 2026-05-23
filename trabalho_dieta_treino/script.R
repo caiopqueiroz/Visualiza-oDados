@@ -170,12 +170,14 @@ dados |>
   geom_bar()
 
 # Pessoas que praticam exercícios tem melhor bem estar? 
-dados |> 
+dados_1 <- dados |> 
   drop_na(exercicios) |> 
   group_by(exercicios) |> 
   summarize(
     media_bem_estar = mean(bem_estar)
   )
+media_pessoas_treinam <- dados_1[2, 2]
+media_pessoas_nao_treinam <- dados_1[1, 2]
 # Sim, a média de nota para o bem estar é maior entre as pessoas que praticam exercícios
 
 # Pessoas que dormem mais tem melhor bem estar?

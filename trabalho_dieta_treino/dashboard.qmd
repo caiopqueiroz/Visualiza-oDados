@@ -203,6 +203,7 @@ dados |>
 #| fig-width: 6
 #| fig-height: 4
 #| column: page
+print('Número de pessoas que treinam e que não treinam')
 dados |>
   drop_na(bem_estar) |> 
   ggplot(
@@ -210,7 +211,9 @@ dados |>
       x = exercicios
     )
   ) +
-  geom_bar()
+  geom_bar(
+    width = 0.4
+  )
 ```
 
 ## Row {height='400px'}
@@ -218,13 +221,56 @@ dados |>
 #| fig-width: 6
 #| fig-height: 4
 #| column: page
-dados |>
-  drop_na(bem_estar) |> 
+print('Quantas pessoas treinam e seguem dieta?')
+dados |> 
+  drop_na() |> 
+  mutate(
+    treino_dieta = ifelse(exercicios == 'Sim' & dieta != 0, 'Sim', 'Não'),
+    pessoas = ifelse(exercicios == 'Sim' | exercicios == 'Não', 'total_pessoas', 0)
+  ) |> 
   ggplot(
     aes(
-      x = exercicios
+      y = pessoas,
+      fill = treino_dieta
     )
   ) +
-  geom_bar()
+  geom_bar(width = 0.2, position = 'fill')
 ```
 
+## Row {height='200px'}
+
+### Column {width='200px'}
+```{r}
+#| title: Prática exercícios
+#| content: valuebox
+dados_1 <- dados |> 
+  drop_na(exercicios) |> 
+  group_by(exercicios) |> 
+  summarize(
+    media_bem_estar = mean(bem_estar)
+  )
+media_pessoas_treinam <- 3.20
+list(
+  icon = 'fuel-pump',
+  color = 'green3',
+  value = media_pessoas_treinam
+)
+```
+
+### Column {width='200px'}
+```{r}
+#| title: Não pratica exercícios
+#| content: valuebox
+dados_1 <- dados |> 
+  drop_na(exercicios) |> 
+  group_by(exercicios) |> 
+  summarize(
+    media_bem_estar = mean(bem_estar)
+  )
+media_pessoas_nao_treinam <- 2.8
+list(
+  icon = 'fuel-pump',
+  color = 'red4',
+  value = media_pessoas_nao_treinam
+  )
+```
