@@ -50,9 +50,7 @@ dados <- dados |>
 # Página inicial
 <!-- Página que irá explicar as variáveis que utilizamos na pesquisa -->
 
-# Alimentação, dieta e bem-estar
-
-**Alimentação e bem-estar**
+# Alimentação
 
 ## Row
 
@@ -196,6 +194,17 @@ dados |>
     )
 ```
 
+## Row {height='200px'}
+```{r}
+print('Pessoas que consideram sua alimentação muito boa seguem dieta?')
+dados |> 
+  filter(alimentacao %in% c(4, 5)) |> 
+  count(dieta = ifelse(dieta %in% c(4, 5), 'Sigo', 'Não sigo')) |> 
+  gt() |> 
+  gt_theme_espn()
+```
+
+
 # Exercícios 
 
 ## Row {height='400px'}
@@ -237,40 +246,234 @@ dados |>
   geom_bar(width = 0.2, position = 'fill')
 ```
 
-## Row {height='200px'}
-
-### Column {width='200px'}
+## Row {height='400px'}
 ```{r}
-#| title: Prática exercícios
-#| content: valuebox
-dados_1 <- dados |> 
+print('Pessoas que praticam exercícios tem melhor bem-estar?')
+dados |> 
   drop_na(exercicios) |> 
   group_by(exercicios) |> 
   summarize(
+    media_bem_estar = round(mean(bem_estar),2)
+  ) |> 
+  gt() |> 
+  gt_theme_espn()
+```
+
+## Row {height='400px'}
+```{r}
+print('É realmente necessário treinar e fazer dieta para se sentir bem?')
+media_ativo <- dados |> 
+  filter(exercicios == 'Sim' & alimentacao %in% c(4, 5)) |> 
+  mutate(
     media_bem_estar = mean(bem_estar)
-  )
-media_pessoas_treinam <- 3.20
-list(
-  icon = 'fuel-pump',
-  color = 'green3',
-  value = media_pessoas_treinam
+  ) |> 
+  select(media_bem_estar)
+
+media_sedentario <- dados |> 
+  filter(exercicios == 'Não' & alimentacao %in% c(0, 1, 2, 3)) |> 
+  mutate(
+    media_bem_estar = mean(bem_estar)
+  ) |> 
+  select(media_bem_estar)
+
+dados_comparacao_bem_estar <- data.frame(
+  habito = c('Treino e alimentação boa', 'Sedentário e alimentação ruim'),
+  media_bem_estar = c(3.58, 2.5)
 )
+
+dados_comparacao_bem_estar |> 
+  ggplot(
+    aes(
+      y = habito,
+      x = media_bem_estar,
+      fill = habito,
+      label = media_bem_estar
+    )
+  ) +
+  scale_fill_manual(
+    values = c('Treino e alimentação boa' = 'green4', 
+               'Sedentário e alimentação ruim' = 'red4')
+  ) +
+  geom_col(width = 0.3) +
+  geom_text(hjust = 1.5, 
+            color = 'white',
+            size = 8
+            )
 ```
 
-### Column {width='200px'}
+## Row 
 ```{r}
-#| title: Não pratica exercícios
-#| content: valuebox
-dados_1 <- dados |> 
-  drop_na(exercicios) |> 
-  group_by(exercicios) |> 
-  summarize(
-    media_bem_estar = mean(bem_estar)
-  )
-media_pessoas_nao_treinam <- 2.8
-list(
-  icon = 'fuel-pump',
-  color = 'red4',
-  value = media_pessoas_nao_treinam
+print('Pessoas que percebem melhora com a alimentação balanceada e o treino realmente treinam e comem bem?')
+```
+
+## Row {height='400px'}
+
+### Column {width='20%'}
+```{r}
+dados |> 
+  filter(melhora %in% c(4, 5)) |> 
+  count(exercicios == 'Sim') |> 
+  arrange(desc(n)) |> 
+  gt() |> 
+  gt_theme_espn()
+```
+
+### Column {width='20%'}
+```{r}
+dados |> 
+  filter(melhora %in% c(4, 5)) |> 
+  count(dias_exercicio %in% c(3, 5)) |> 
+  gt() |> 
+  gt_theme_espn()
+```
+
+### Column {width='60%'}
+```{r}
+dados |> 
+  filter(melhora %in% c(4, 5)) |> 
+  count(pessoas = ifelse(alimentacao %in% c(4, 5), 'Alimentação boa', 'Alimentação ruim')) |> 
+  ggplot(
+    aes(
+      y = pessoas,
+      x = n
+    )
+  ) +
+  geom_col() +
+  labs(
+    title = 'Pessoas que percebem melhora muito alta ao associar exercício físico e boa alimentação',
+    subtitle = 'Quantas delas realmente se alimentam muito bem?'
   )
 ```
+
+# Idade 
+
+## Row 
+```{r}
+print('Pessoas mais jovens treinam mais?')
+```
+
+## Row {height='400px'}
+```{r}
+print('Média de dias de exercício por semana de acordo com a idade')
+dados |> 
+  drop_na(idade) |> 
+  filter(exercicios == 'Sim') |> 
+  group_by(idade) |> 
+  summarize(
+    media_dias_exercicio = mean(dias_exercicio)
+  ) |> 
+  ggplot(
+    aes(
+      y = idade,
+      x = media_dias_exercicio,
+      label = round(media_dias_exercicio,2)
+    )
+  ) +
+  geom_col() +
+  geom_text(
+    hjust = 1.5,
+    color = 'white',
+    size = 8
+    )
+```
+
+## Row {height='400px'}
+```{r}
+print('Proporção entre quem pratica e não pratica exercícios de acordo com a idade')
+dados |> 
+  drop_na(idade) |> 
+  group_by(idade, exercicios) |> 
+  summarize(
+    pessoas = n()
+  ) |> 
+  ggplot(
+    aes(
+      y = idade,
+      x = pessoas,
+      fill = exercicios
+    )
+  ) +
+  geom_col(
+    position = 'fill',
+    width = 0.4
+    )
+```
+
+## Row 
+```{r}
+print('Pessoas mais jovens se alimentam melhor?')
+```
+
+## Row {height='400px'}
+
+### Column
+```{r}
+dados |> 
+  drop_na(idade) |> 
+  group_by(idade) |> 
+  summarize(
+    media_alimentacao = mean(alimentacao)
+  ) |> 
+  ggplot(
+    aes(
+      y = idade,
+      x = media_alimentacao,
+      label = round(media_alimentacao,2)
+    )
+  ) +
+  geom_col() +
+  geom_text(
+    color = 'white',
+    size = 8,
+    hjust = 1.5
+  )
+```
+
+### Column
+
+#### Row 
+```{r}
+print('Considerando apenas as pessoas entre 14 e 21 anos')
+dados |> 
+  filter(idade == '18 - 21' | idade == '14 - 17') |> 
+  count(alimentacao %in% c(4, 5)) |> 
+  gt() |> 
+  gt_theme_espn()
+```
+
+#### Row 
+```{r}
+print('Considerando apenas as pessoas com 22 anos ou mais')
+dados |> 
+  filter(idade == '22 - 25' | idade == '26 ou mais.') |> 
+  count(alimentacao %in% c(4, 5)) |> 
+  gt() |> 
+  gt_theme_espn()
+```
+
+# Sono
+
+## Row {height='400px'}
+```{r}
+print('Pessoas que dormem mais tem melhor bem-estar?')
+dados |> 
+  drop_na(sono) |> 
+  group_by(sono) |> 
+  summarize(
+    media_bem_estar = mean(bem_estar)
+  ) |> 
+  ggplot(
+    aes(
+      y = as.character(sono),
+      x = media_bem_estar,
+      label = round(media_bem_estar,2)
+    )
+  ) +
+  geom_col() +
+  geom_text(
+    color = 'white',
+    size = 8,
+    hjust = 1.5
+  )
+```
+

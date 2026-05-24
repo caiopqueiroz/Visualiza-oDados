@@ -49,25 +49,12 @@ dados |>
 
 
 
-# Separando as perguntas por variáveis:
-
-# SONO
-# Pessoas que dormem mais tem melhor bem estar?
-
-# EXERCICIOS
-# Número de ocorrências de pessoas que treinam e não treinam
-# Quantas pessoas treinam e seguem dieta?
-# Pessoas que praticam exercícios tem melhor bem estar?
-# É realmente necessário treinar e fazer dieta para se sentir bem?
-# Pessoas que percebem melhora com a alimentação balanceada e o treino realmente treinam e comem bem?
-
-# ALIMENTAÇÃO
-# Pessoas que consideram sua alimentação boa seguem dieta?
-
-# IDADE
-# Pessoas mais jovens treinam mais?
-# Pessoas mais jovens se alimentam melhor?
-
+# Ideias:
+# Criar uma explicação das variáveis na página inicial
+# Adicionar a média geral de cada variável para comparação:
+# Exemplo: média geral de alimentação / média geral de sono / etc
+# Transformar os gráficos de densidade em histogramas
+# Fazer uma última página com as conclusões finais do formulário
 
 
 
@@ -174,8 +161,10 @@ dados_1 <- dados |>
   drop_na(exercicios) |> 
   group_by(exercicios) |> 
   summarize(
-    media_bem_estar = mean(bem_estar)
-  )
+    media_bem_estar = round(mean(bem_estar),2)
+  ) |> 
+  gt() |> 
+  gt_theme_espn()
 media_pessoas_treinam <- dados_1[2, 2]
 media_pessoas_nao_treinam <- dados_1[1, 2]
 # Sim, a média de nota para o bem estar é maior entre as pessoas que praticam exercícios
@@ -186,18 +175,36 @@ dados |>
   group_by(sono) |> 
   summarize(
     media_bem_estar = mean(bem_estar)
+  ) |> 
+  ggplot(
+    aes(
+      y = as.character(sono),
+      x = media_bem_estar,
+      label = round(media_bem_estar,2)
+    )
+  ) +
+  geom_col() +
+  geom_text(
+    color = 'white',
+    size = 8,
+    hjust = 1.5
   )
 # Fato curioso: A média de nota para o bem estar é maior entre as pessoas com 5 horas de sono
 
 # Pessoas que percebem melhora com a alimentação balanceada e o treino realmente treinam e comem bem?
 dados |> 
   filter(melhora %in% c(4, 5)) |> 
-  count(exercicios == 'Sim')
+  count(exercicios == 'Sim') |> 
+  arrange(desc(n)) |> 
+  gt() |> 
+  gt_theme_espn()
 # A grande maioria das pessoas que percebem grande melhora com o treino e alimentação realmente treinam
 
 dados |> 
   filter(melhora %in% c(4, 5)) |> 
-  count(dias_exercicio %in% c(3, 5)) 
+  count(dias_exercicio %in% c(3, 5)) |> 
+  gt() |> 
+  gt_theme_espn()
 # Fato curioso: Mas menos da metade treina pelo menos 3 dias por semana
 
 dados |> 
@@ -221,7 +228,9 @@ dados |>
 # Pessoas que consideram sua alimentação boa seguem dieta?
 dados |> 
   filter(alimentacao %in% c(4, 5)) |> 
-  count(dieta = ifelse(dieta %in% c(4, 5), 'Sigo', 'Não sigo'))
+  count(dieta = ifelse(dieta %in% c(4, 5), 'Sigo', 'Não sigo')) |> 
+  gt() |> 
+  gt_theme_espn()
 # Fato curioso: Entre as pessoas que consideram sua alimentação muito boa, a maioria diz não seguir à risca uma dieta 
 
 # Pessoas mais jovens se alimentam melhor?
@@ -230,10 +239,23 @@ dados |>
   group_by(idade) |> 
   summarize(
     media_alimentacao = mean(alimentacao)
+  ) |> 
+  ggplot(
+    aes(
+      y = idade,
+      x = media_alimentacao,
+      label = round(media_alimentacao,2)
+    )
+  ) +
+  geom_col() +
+  geom_text(
+    color = 'white',
+    size = 8,
+    hjust = 1.5
   )
 
 dados |> 
-  filter(idade == '18 - 21') |> 
+  filter(idade == '18 - 21' | idade == '14 - 17') |> 
   count(alimentacao %in% c(4, 5))
 
 dados |> 
@@ -245,7 +267,8 @@ dados |>
   group_by(idade) |> 
   summarize(
     quantidade_pessoas = n()
-  )
+  ) |> 
+  gt()
 # Os dados indicam que os mais jovens se alimentam melhor, mas a resposta é incerta porque só 6 pessoas com mais de 26 anos respondeu a pesquisa 
 
 # Pessoas mais jovens treinam mais?   
@@ -255,15 +278,27 @@ dados |>
   group_by(idade) |> 
   summarize(
     media_dias_exercicio = mean(dias_exercicio)
-  )
+  ) |> 
+  ggplot(
+    aes(
+      y = idade,
+      x = media_dias_exercicio,
+      label = round(media_dias_exercicio,2)
+    )
+  ) +
+  geom_col() +
+  geom_text(
+    hjust = 1.5,
+    color = 'white',
+    size = 8
+    )
 
 dados |> 
-  drop_na(idade) |> 
   group_by(idade, exercicios) |>
   summarize(
     pessoas = n()
   ) |> 
-  filter(exercicios == 'Sim')
+  gt()
 
 dados |> 
   drop_na(idade) |> 
@@ -338,7 +373,7 @@ dados |>
 
 dados_comparacao_bem_estar <- data.frame(
   habito = c('Treino e alimentação boa', 'Sedentário e alimentação ruim'),
-  media_bem_estar = c(3.46, 2.17)
+  media_bem_estar = c(3.58, 2.5)
 )
 
 dados_comparacao_bem_estar |> 
