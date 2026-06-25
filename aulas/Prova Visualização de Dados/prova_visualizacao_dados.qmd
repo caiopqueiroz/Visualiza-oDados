@@ -1,0 +1,182 @@
+---
+title: "Prova Visualização de Dados"
+format: html
+editor: visual
+---
+
+```{r}
+#| echo: FALSE
+#| warning: FALSE
+#| message: FALSE
+# Carregando pacotes 
+library(readxl)
+library(tidyverse)
+dados <- read_excel('candy_rankings.xlsx')
+
+# Banco de dados sobre doces 
+
+# Possíveis perguntas:
+# Qual a proporção de doces que possuem chocolate?
+# Em quantos doces, a embalagem oferece mais de uma unidade? # Existe relação entre o preço do produto e a quantidade de açúcar?
+```
+
+Caio Queiroz  - 7466
+
+Bernardo Tufi - 7470
+
+Nós decidimos escolher o banco de dados "candy_rankings", fornecido pelo professor.
+
+## Gráfico 1:
+
+Iniciamos fazendo um gráfico comparando o percentual de doces que possuem chocolate no banco de dados. Fizemos um gráfico de proporção para visualizar e analisar o resultado.
+
+```{r}
+#| echo: FALSE
+#| warning: FALSE
+#| message: FALSE
+# Gráfico 1: Qual a proporção de doces que possuem chocolate?
+dados |> 
+  mutate(
+    chocolate = ifelse(chocolate == 1, 'Sim', 'Não'),
+    contagem = ifelse(chocolate == 'Sim' | chocolate == 'Não', ' ', 0)
+  ) |> 
+  ggplot(
+    aes(
+      y = contagem,
+      fill = chocolate
+    )
+  ) +
+  geom_bar(
+    position = 'fill',
+    width = 0.2
+    ) +
+  geom_text(
+    aes(
+      label = scales::percent(after_stat(count / tapply(count, y, sum)[y])),
+      group = chocolate
+    ), 
+    stat = 'count', 
+    position = position_fill(vjust = 0.5),
+    color = 'white',
+    size = 8
+  ) +
+  labs(
+    title = 'Será que todos os doces têm chocolate?',
+    subtitle = 'Análise de doces de supermercado',
+    x = 'Total de doces',
+    y = '',
+    fill = 'Tem chocolate?'
+  ) +
+  theme_minimal(
+    base_size = 14
+  ) +
+  theme(
+    plot.title = element_text(size = 18, face = 'bold'),
+    legend.position = c(0.15, 0.80)
+  ) +
+  scale_fill_manual(
+    values = c(
+      'Sim' = '#0FC979',
+      'Não' = '#FF5613'
+    )
+  )
+```
+
+Conclusão: Muitas pessoas pensam em chocolates quando o assunto é doces. Entretanto, como podemos ver no gráfico, cerca de 56% dos doces analisados não possuem chocolate.
+
+## Gráfico 2:
+
+No banco de dados, existem também as seguintes variáveis:
+
+-   Percentil de preço: Preço do produto em comparação com o resto dos doces
+-   Percentual de açúcar: Quantidade de açúcar no produto em comparação com o resto do doces
+
+Então, fizemos a seguinte pergunta:
+
+```{r}
+#| echo: FALSE
+#| warning: FALSE
+#| message: FALSE
+# Gráfico 2: Existe relação entre o preço do produto e a quantidade de açúcar que ele tem? 
+dados |> 
+  ggplot(
+    aes(
+      x = percentil_acucar,
+      y = percentil_preco
+    )
+  ) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = FALSE
+  ) +
+  scale_x_log10() +
+  labs(
+    title = 'Doces com mais açúcar custam mais caro?',
+    subtitle = 'Relação entre preço do produto e percentil de açúcar',
+    x = 'Percentil de açúcar',
+    y = 'Percentil de preço'
+  ) +
+  theme_minimal(
+    base_size = 14
+  ) +
+  theme(
+    plot.title = element_text(size = 18, face = 'bold')
+  )
+```
+
+A conclusão é que, apesar da utilização de uma pequena distorção no eixo x, o açúcar parece sim influenciar no aumento do preço do produto final.
+
+## Gráfico 3:
+
+Já nessa última visualização, notamos que a distribuição entre doces de embalagem única e doces de embalagem partilhada é muito similar.
+
+Snickers é um doce único, enquanto M&M's seria um exemplo em que uma embalagem tem várias unidades.
+
+```{r}
+#| echo: FALSE
+#| warning: FALSE
+#| message: FALSE
+# Gráfico 3: Em quantos doces a embalagem oferece mais de uma unidade?
+dados |> 
+  mutate(
+    varias_unidades = ifelse(
+      varias_unidades == 1, 'Mais de uma unidade', 'Única unidade'
+    )
+  ) |> 
+  ggplot(
+    aes(
+      x = varias_unidades,
+      fill = varias_unidades
+    )
+  ) +
+    geom_bar(
+      width = 0.3
+    ) +
+  geom_text(
+    stat = "count", 
+    aes(label = after_stat(count)),
+    size = 8,
+    color = 'white',
+    vjust = 1.5
+  ) +
+  labs(
+    title = 'É comum que doces sejam vendidos separadamente?',
+    subtitle = 'Comparação entre quantidades de embalagens únicas e partilhadas',
+    x = 'Conteúdo da embalagem',
+    y = 'Quantidade'
+  ) +
+  theme_minimal(
+    base_size = 14
+  ) +
+  theme(
+    plot.title = element_text(face = 'bold', size = 18),
+    legend.position = 'none'
+  ) +
+  scale_fill_manual(
+    values = c(
+      'Mais de uma unidade' = '#1423B3',
+      'Única unidade' = '#FFBA00'
+    )
+  )
+```

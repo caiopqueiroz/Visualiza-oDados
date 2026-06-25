@@ -44,13 +44,31 @@ Raiz:
 	    
 	    ) - Criar valuebox 
 
-	ggplotly(x, tooltip = 'text') - Tornar o gráfico x interativo 
+	ggplotly(x, tooltip='text') - Tornar o gráfico x interativo 
 
 	animate(x, 
 		nframes = 30,
 		fps = 4,
 		renderer = gifski_renderer()
 		) - Animar o gráfico x	
+
+	slice(x) - Fazer um recorte somente da linha x no banco 
+
+	pull(y) - Exibir somente a coluna y dessa linha recortada
+
+	unnest_tokens(
+		input = x,
+		output = y
+	) - Separar as palavras de uma coluna, x é a coluna de entrada, y será a coluna de saída
+
+	stop_pt <- get_stopwords(language = 'pt') - Banco de dados com stopwords da língua portuguesa
+
+	anti_join(
+		stop_pt,
+		by = c('x' = 'words')
+	) - Retirar as stopwords da coluna x 
+
+	slice_max(x, n = 10) - Define que apenas as primeiras 10 linhas da coluna x serão consideradas
 
 Tabelas:
 	gt(x) - Criar tabela do banco x
@@ -100,6 +118,8 @@ ggplot():
 
 	+ ease_aes('linear') - Definir uma transição suave
 
+	+ geom_text_wordcloud() - Criar uma nuvem de palavras
+
 	aes(
 		color - Cor
 
@@ -112,6 +132,8 @@ ggplot():
 		linewidth - Largura da linha
 
 		text = paste() - Escrever informações que serão exibidas em um gráfico interativo
+
+		size = Tamanho
 	)
 
 Project R ou Quarto Document (visual):

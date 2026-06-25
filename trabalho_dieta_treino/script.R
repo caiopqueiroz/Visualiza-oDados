@@ -395,3 +395,84 @@ dados_comparacao_bem_estar |>
             size = 8
             )
 # Os dados indicam que a média de bem estar entre as pessoas é melhor para quem treina e tem uma alimentação muito boa 
+
+dados |> 
+  ggplot(
+    aes(
+      x = alimentacao,
+      y = bem_estar
+    )
+  ) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm', se = FALSE
+  )
+# Não é um bom gráfico porque muitos dos pontos ficam exatamente no mesmo lugar, o que dá a impressão de que existem poucos
+
+dados |> 
+  drop_na() |> 
+  mutate(
+    treino_dieta = ifelse(
+      exercicios == 'Sim' & dieta != 0, 
+      'Treino e dieta', 
+      ifelse(
+        exercicios == 'Não' & dieta == 0,
+        'Sem treino e sem dieta',
+        'Treino ou dieta'
+      ))) |>  
+  select(treino_dieta, exercicios, dieta) |> 
+  gt() |> 
+  gt_theme_espn()
+
+
+dados |> 
+  drop_na() |> 
+  mutate(
+    treino_dieta = ifelse(
+      exercicios == 'Sim' & dieta != 0, 
+      'Treino e dieta', 
+      ifelse(
+      exercicios == 'Não' & dieta == 0,
+      'Sem treino e sem dieta',
+      'Treino ou dieta'
+    )),
+    pessoas = ifelse(exercicios == 'Sim' | exercicios == 'Não', ' ', 0)
+  ) |> 
+  ggplot(
+    aes(
+      y = pessoas,
+      fill = treino_dieta,
+    )
+  ) +
+  geom_bar(width = 0.2, position = 'fill') +
+  geom_text(
+    aes(
+      label = scales::percent(after_stat(count / tapply(count, y, sum)[y])),
+      group = treino_dieta
+    ), 
+    stat = "count", 
+    position = position_fill(vjust = 0.5),
+    color = 'white',
+    size = 8
+  ) +
+  scale_fill_manual(
+    values = c(
+      'Treino e dieta' = 'green4',
+      'Treino ou dieta' = 'goldenrod',
+      'Sem treino e sem dieta' = 'red4'
+    )
+  ) +
+  labs(
+    title = 'Estilo de vida "disciplinado" ainda é maioria',
+    x = 'Total de pessoas',
+    y = ' ',
+    fill = 'Hábito'
+  ) +
+  theme_minimal(
+    base_size = 14
+  ) +
+  theme(
+    plot.title = element_text(size = 18, face = 'bold'),
+    legend.position = c(0.25, 0.85)
+  )
+    
